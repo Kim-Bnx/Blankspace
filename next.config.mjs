@@ -1,19 +1,9 @@
-import { createMDX } from 'fumadocs-mdx/next';
+import nextra from "nextra";
 
-const withMDX = createMDX();
+// Set up Nextra with its configuration
+const withNextra = nextra({
+    contentDirBasePath: "/docs", // Or even nested e.g. `/docs/advanced`
+});
 
-/** @type {import('next').NextConfig} */
-const config = {
-  serverExternalPackages: ['@takumi-rs/image-response'],
-  reactStrictMode: true,
-  async rewrites() {
-    return [
-      {
-        source: '/docs/:path*.mdx',
-        destination: '/llms.mdx/docs/:path*',
-      },
-    ];
-  },
-};
-
-export default withMDX(config);
+// Export the final Next.js config with Nextra included
+export default withNextra({});
