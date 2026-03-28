@@ -1,6 +1,7 @@
 @import "tailwindcss";
-@import "fumadocs-ui/css/neutral.css";
-@import "fumadocs-ui/css/preset.css";
+@import "nextra-theme-docs/style.css"; /* or nextra-theme-blog/style.css */
+
+@variant dark (&:where(.dark *));
 
 @layer components {
     .pill {
@@ -20,15 +21,50 @@
 
     --color-text-muted: #8c8eab;
 
+    --color-dark-100: #555578;
     --color-dark-200: #2f2c3b;
     --color-dark-450: #1d1c22;
     --color-dark-500: #16151a;
 
+    --color-light-100: #efedff;
     --color-light-300: #d3d1d4;
     --color-light-800: #8c8eab;
 
     --font-body: "Nunito", sans-serif;
     --font-headings: "Lexend", sans-serif;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideFromRight {
+    from {
+        opacity: 0;
+        transform: translateX(24px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideFromLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-24px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
 
 @layer base {
@@ -80,10 +116,11 @@ svg[height="0"][aria-hidden="true"] {
     clip-path: inset(0);
 }
 .copy {
+    @apply text-light-300;
     display: grid;
     align-content: start;
     gap: 1rem;
-    color: var(--foreground);
+
     font-size: 1.125rem;
     line-height: 1.5rem;
 
@@ -190,23 +227,4 @@ svg[height="0"][aria-hidden="true"] {
 }
 .hoverArrow__tipPath {
     @apply group-hover:[--arrowTipTransform:var(--arrowHoverOffset)];
-}
-
-:is(pre *):is(.shiki *):not(.not-fumadocs-codeblock *) {
-    .line {
-        &::before {
-            content: counter(step);
-            counter-increment: step;
-            width: 1rem;
-            margin-right: 1.5rem;
-            display: inline-block;
-            text-align: right;
-            color: var(--color-border);
-        }
-    }
-}
-
-code {
-    counter-reset: step;
-    counter-increment: step 0;
 }

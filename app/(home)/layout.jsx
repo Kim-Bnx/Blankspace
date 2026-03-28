@@ -1,6 +1,5 @@
 import "../global.css";
 import { Lexend, Nunito, Inclusive_Sans } from "next/font/google";
-import { RootProvider } from "fumadocs-ui/provider/next";
 
 const headings = Lexend({ subsets: ["latin"] });
 const body = Nunito({ subsets: ["latin"], weight: ["400", "700"] });
@@ -11,10 +10,10 @@ export default function Layout({ children }) {
         <html lang="fr" suppressHydrationWarning>
             <body
                 suppressHydrationWarning
-                className={`${body.className} ${headings.className} ${mono.className} bg-background`}
+                className={`${body.className} ${headings.className} ${mono.className} bg-background text-light-100`}
                 style={{ colorScheme: "dark" }}
             >
-                <RootProvider>{children}</RootProvider>
+                {children}
             </body>
         </html>
     );

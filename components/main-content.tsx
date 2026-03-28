@@ -1,0 +1,23 @@
+"use client";
+
+import { type ReactNode } from "react";
+import { useScrollContainer } from "@/lib/scroll-context";
+import { NavbarBlob } from "./navbar-blob";
+
+export function MainContent({ children }: { children: ReactNode }) {
+    // On enregistre ce nœud comme conteneur de scroll dans le contexte
+    const scrollRef = useScrollContainer();
+
+    return (
+        <main
+            ref={scrollRef}
+            className="flex flex-1 bg-card rounded-tl-3xl overflow-auto min-h-0 relative"
+        >
+            <NavbarBlob position="top" />
+            <div className="flex-1">
+                <div className="pointer-events-none sticky top-0 w-full h-10 bg-gradient-to-b from-card to-transparent z-10" />
+                {children}
+            </div>
+        </main>
+    );
+}

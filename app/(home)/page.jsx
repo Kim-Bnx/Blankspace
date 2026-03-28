@@ -3,8 +3,10 @@ import { LogoFull } from "../logo-full";
 import { cn } from "@/lib/cn";
 import { LogoIcon } from "../logo-icon";
 import ArrowIcon from "../../components/arrow-icon";
-import Navbar from "../../components/navbar";
+import { Navbar } from "../../components/navbar";
 import FALogo from "../../components/fa-logo";
+import { getPageMap } from "nextra/page-map";
+import { NavbarBlob } from "../../components/navbar-blob";
 
 function HomePageSlider() {
     //créer un slider avec tailwindcss
@@ -46,15 +48,15 @@ function HomePageSlider() {
     );
 }
 
-export default function Home() {
+export default async function Home() {
+    const pageMap = await getPageMap("/docs");
     // active link
     return (
         <section className="max-w-7xl mx-auto my-2 space-y-2">
-            <Navbar />
-            <div className="max-w-7xl p-12 rounded-3xl bg-linear-to-b from-card to-background pb-40">
-                <div className="w-2xl h-[450px] bg-accent rounded-[100%] opacity-[0.06] blur-[75px] absolute left-1/2 transform -translate-x-1/2 top-0 -translate-y-1/2 "></div>
-
+            <Navbar pageMap={pageMap} mode="home" />
+            <div className="max-w-7xl p-12 rounded-3xl bg-linear-to-b from-card to-background pb-40 overflow-hidden">
                 <section className="my-10 mx-auto flex flex-col items-center gap-10 w-3xl z-10 relative">
+                    <NavbarBlob position="top" mode="home" />
                     <div className="text-accent">
                         <LogoIcon size={130} className="text-accent" />
                     </div>
