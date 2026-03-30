@@ -1,0 +1,111 @@
+---
+title: Apprendre à déboguer
+---
+
+Lorsque l’on personnalise un forum avec du HTML, du CSS ou du JavaScript, il est normal de rencontrer des erreurs.
+
+Le débogage (ou *debug*) consiste simplement à **identifier la cause d’un problème afin de le corriger**.
+
+Les erreurs les plus courantes sont généralement :
+
+- une balise mal fermée
+- un sélecteur incorrect
+- une faute de frappe
+- un script exécuté trop tôt
+- une modification de template qui casse un script existant
+
+Le meilleur outil pour analyser ce type de problème est **l’inspecteur d’élément du navigateur**.
+
+## L’inspecteur d’élément
+
+Tous les navigateurs modernes disposent d’un inspecteur intégré.
+
+Il permet d’examiner la structure HTML d’une page, les styles appliqués et les éventuelles erreurs JavaScript.
+
+Pour l’ouvrir :
+
+- **clic droit → Inspecter**
+- ou la touche **F12**
+
+Une nouvelle fenêtre apparaît avec plusieurs onglets.
+
+<Callout type="tip">
+L’interface de cette fenêtre foisonne d’information. Ne vous laissez pas impressionner et prenez l’habitude de l’ouvrir dès que vous rencontrer un problème pour vous familiariser avec.
+</Callout>
+
+## L’onglet Elements
+
+L’onglet **Elements** affiche la structure HTML complète de la page.
+
+C’est l’outil principal pour comprendre :
+
+- la structure réelle d’un élément
+- quelles classes sont présentes
+- quels styles CSS sont appliqués
+- si votre modification fonctionne
+
+### Inspecter un élément
+
+Pour inspecter précisément un élément d’une page, faites clic droit directement sur l’élément concernée. L’inspecteur s’ouvrira directement sur la partie concernée. 
+
+Vous pouvez ainsi vérifier si l’élément est bien construit et si les classes attribuées sont bien effectives.
+
+### Tester du code
+
+L’inspecteur permet de **modifier le code HTML et CSS directement dans la fenêtre :**
+
+- pour éditer : doublez cliquer sur un élément HTML ou une propriété CSS
+- pour simuler : cliquer sur le petit bouton :hov à droite de la barre de filtre des styles et choisissez l’état de l’élément (très utile pour voir un élément au survol avec l’état `:hover`)
+
+C’est très utile pour expérimenter et comprendre le fonctionnement logique du code. A utiliser sans modération. 
+
+<Callout type="warning">
+Le code modifié dans l’inspecteur d’élément n’est pas sauvergardé.
+</Callout>
+
+### Vérifier le CSS
+
+Si un style CSS ne s’applique pas, plusieurs causes sont possibles :
+
+- la classe déclarée en CSS et la classe ajoutée en HTML sont différentes (erreur de frappe)
+- un autre style écrase votre propriété (elle sera barrée dans l’inspecteur)
+→ voir CSS, cascade, ordre et spécificité
+- la propriété est incompatible avec le contexte ou l’élément
+
+Dans l’inspecteur, les styles CSS sont affichés dans l’ordre de priorité.
+
+## Onglet Console
+
+Cet onglet concerne exclusivement les erreurs provoquées par un script. 
+
+En l’ouvrant, vous remarquez plusieurs erreurs sur fond rouge ou jaune. Il s’agit de dysfonctionnement issu de système désuet de Forumactif. Cela peut provenir de vos paramètres de navigateurs ou d’une extension installée. 
+
+Si vous utilisez le Blank, les erreurs qui vous concernent apparaitront sous un fond bleu avec la notion : `[ BLANK : nom du script ] description de l’erreur`
+
+Les description des erreurs sont de bons indicateurs pour trouver l’origine du problème.
+
+## Bonnes pratiques
+
+Les bugs sont inhérents au code. C’est en faisant des erreurs que vous vous améliorez. On dit souvent qu’un bug est un fonctionnement normal d’un code. Si ça ne fonctionne pas, c’est que ce n’est pas fait pour être utilisé ainsi. Donc on dit aussi que le problème se trouve entre l’écran et la chaise (avec humour et bienveillance).
+
+### Sauvegarder sa progression
+
+Certains bugs ont des résultats inattendu très impressionnant mais il est rare que votre avancée soit irréversible. N’hésitez pas à revenir en arrière pour tester des solutions alternatives. Prenez le soin de sauvegarder vos codes de temps à autres. Vous vous remercierez plus d’une fois.
+
+### Demander de l’aide
+
+Il existe plusieurs plateforme d’entraide dans la communauté :
+
+- Forum des Forums
+- FAQ du Blank
+- Support du Blank
+- Discord La Piscine
+- Epicode
+
+Lorsque vous présenter votre problème, donnez le plus d’information possible à vos futurs interlocuteurs. Un problème bien présenté donne beaucoup plus envie de venir aider.
+
+Pour cela :
+
+- Donnez un maximum d’information : quel code utilisez-vous (le votre, un libre-service, le Blank), quel est le résultat attendu et quel est le résultat actuel, lister ce que vous avez essayer de faire
+- Fournissez le lien du forum (le vrai ou de test) avec un accès membre si possible
+- Collez les bouts de codes que vous jugez pertinents
