@@ -14,15 +14,16 @@ type DirectoryItem = ReturnType<
 
 const FolderItem: FC<{
     item: DirectoryItem;
+    pathname: string;
     renderItem: (item: DirectoryItem) => React.ReactNode;
-}> = ({ item, renderItem }) => {
+}> = ({ item, pathname, renderItem }) => {
     const [open, setOpen] = useState(true);
 
     return (
         <li>
             <button
                 onClick={() => setOpen((o) => !o)}
-                className="w-full py-2 px-4 flex items-center justify-between rounded-xl text-light-800 hover:text-light-100 transition-colors"
+                className="w-full py-2 px-4 text-sm flex items-center justify-between rounded-xl text-light-800 hover:text-light-100 transition-colors"
             >
                 <span>{item.title}</span>
                 <svg
@@ -42,7 +43,32 @@ const FolderItem: FC<{
             {open && (
                 <ul className="flex flex-col ml-4 border-l border-border">
                     {"children" in item &&
-                        item.children.map((child) => renderItem(child))}
+                        item.children.map((child) => {
+                            if ("children" in child) {
+                                return renderItem(child);
+                            }
+
+                            const route =
+                                child.route ||
+                                ("href" in child ? (child.href as string) : "");
+                            const isActive = pathname === route;
+
+                            return (
+                                <li key={route}>
+                                    <Anchor
+                                        href={route}
+                                        className={cn(
+                                            "py-1 px-4 text-sm flex items-center gap-2 border-l -ml-px rounded-none hover:text-light-100 transition-colors [&_svg]:size-4",
+                                            isActive
+                                                ? "font-semibold text-accent-600 border-l-accent"
+                                                : "text-light-800 border-l-transparent hover:border-l-white",
+                                        )}
+                                    >
+                                        {child.title}
+                                    </Anchor>
+                                </li>
+                            );
+                        })}
                 </ul>
             )}
         </li>
@@ -72,10 +98,16 @@ export const Sidebar: FC<{ pageMap: PageMapItem[] }> = ({ pageMap }) => {
         const route =
             item.route || ("href" in item ? (item.href as string) : "");
         const { title } = item;
+        const isActive = pathname === route;
 
         if ("children" in item) {
             return (
-                <FolderItem key={route} item={item} renderItem={renderItem} />
+                <FolderItem
+                    key={route}
+                    item={item}
+                    pathname={pathname}
+                    renderItem={renderItem}
+                />
             );
         }
 
@@ -84,10 +116,10 @@ export const Sidebar: FC<{ pageMap: PageMapItem[] }> = ({ pageMap }) => {
                 <Anchor
                     href={route}
                     className={cn(
-                        "py-2 px-4 flex items-center gap-2 rounded-xl hover:text-light-100 transition-colors hover:bg-card",
-                        pathname === route
+                        "py-2 px-4 text-sm flex items-center gap-2 rounded-xl hover:text-light-100 transition-colors [&_svg]:size-4",
+                        isActive
                             ? "font-semibold text-accent-600"
-                            : "text-light-800",
+                            : "text-light-800 hover:bg-card",
                     )}
                 >
                     {title}
@@ -99,9 +131,9 @@ export const Sidebar: FC<{ pageMap: PageMapItem[] }> = ({ pageMap }) => {
     return (
         <div className="min-w-2xs">
             <div className="pl-12 pr-6 flex flex-col gap-4">
-                <div className="flex items-center h-15 text-accent">
+                <a className="flex items-center h-15 text-accent" href="/">
                     <TinyLogo size={24} />
-                </div>
+                </a>
                 {groups.map((group, i) => (
                     <ul
                         key={

@@ -1,25 +1,74 @@
 ---
-title: "Index"
-icon: LinkIcon
+title: "Markdown syntax guide"
+description: "A quick reference guide to Markdown syntax for formatting text in your posts and comments."
 ---
 
-All relative Markdown links are automatically converted into
-[Next.js links](https://nextjs.org/docs/app/building-your-application/routing/linking-and-navigating).
-This means that the target page will be prefetched. When you click on a link,
-the page will be loaded on the client-side like a
-[Single-Page Application (SPA)](https://en.wikipedia.org/wiki/Single-page_application),
-without making a full page load. For example:
+# Markdown syntax guide
 
-```md filename="Markdown"
-Click [here](/about) to read more.
+## Headers
+
+# This is a Heading h1
+
+## This is a Heading h2
+
+###### This is a Heading h6
+
+## Emphasis
+
+_This text will be italic_  
+_This will also be italic_
+
+**This text will be bold**  
+**This will also be bold**
+
+_You **can** combine them_
+
+## Lists
+
+### Unordered
+
+- Item 1
+- Item 2
+- Item 2a
+- Item 2b
+    - Item 3a
+    - Item 3b
+
+### Ordered
+
+1. Item 1
+2. Item 2
+3. Item 3
+    1. Item 3a
+    2. Item 3b
+
+## Images
+
+## Links
+
+You may be using [Markdown Live Preview](https://markdownlivepreview.com/).
+
+## Blockquotes
+
+> Markdown is a lightweight markup language with plain-text-formatting syntax, created in 2004 by John Gruber with Aaron Swartz.
+>
+> > Markdown is often used to format readme files, for writing messages in online discussion forums, and to create rich text using a plain text editor.
+
+## Tables
+
+| Left columns | Right columns |
+| ------------ | :-----------: |
+| left foo     |   right foo   |
+| left bar     |   right bar   |
+| left baz     |   right baz   |
+
+## Blocks of code
+
+```js
+let message = "Hello world";
+alert(message);
 ```
 
-Will be equivalent to:
+## Inline code
 
-```mdx filename="MDX"
-import Link from "next/link";
-
-Click <Link href="/about">here</Link> to read more.
-```
-
-This feature makes `navigation between` Nextra pages fast and seamless.
+This web site is using `markedjs/marked`.

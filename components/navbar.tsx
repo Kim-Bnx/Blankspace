@@ -5,7 +5,7 @@ import type { PageMapItem } from "nextra";
 import { Anchor } from "nextra/components";
 import { normalizePages } from "nextra/normalize-pages";
 import type { FC } from "react";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useLayoutEffect, useRef } from "react";
 import TinyLogo from "@/app/tiny-logo";
 import {
     ChevronDown,
@@ -20,8 +20,9 @@ import {
     LayoutTemplate,
     Package,
     Plug,
-    Github,
 } from "lucide-react";
+import DiscordIcon from "./discord-icon";
+import GithubIcon from "./github-icon";
 import { cn } from "@/lib/cn";
 import { NavbarBlob } from "./navbar-blob";
 
@@ -52,21 +53,25 @@ const NAV_PANEL_CONTENT: Record<
                         icon: BookMarked,
                         title: "Introduction",
                         desc: "Présentation du thème",
+                        href: "/docs/theme",
                     },
                     {
                         icon: Upload,
                         title: "Installation",
                         desc: "Installation automatique",
+                        href: "/docs/theme/installation",
                     },
                     {
                         icon: RefreshCw,
                         title: "Vitrine",
                         desc: "Forums créés avec le Blank",
+                        href: "/docs/theme/vitrine",
                     },
                     {
                         icon: HelpCircle,
                         title: "FAQ et support",
                         desc: "Questions/réponses",
+                        href: "/docs/theme/faq",
                     },
                 ],
             },
@@ -76,15 +81,22 @@ const NAV_PANEL_CONTENT: Record<
                     {
                         title: "Configuration le forum",
                         desc: "Présentation du thème",
+                        href: "/theme/pas-a-pas/configuration",
                     },
                     {
                         title: "Modifier les templates",
                         desc: "Présentation du thème",
+                        href: "/theme/pas-a-pas/templates",
                     },
-                    { title: "Ajouter le CSS", desc: "Présentation du thème" },
+                    {
+                        title: "Ajouter le CSS",
+                        desc: "Présentation du thème",
+                        href: "/theme/pas-a-pas/css",
+                    },
                     {
                         title: "Ajouter le Javascript",
                         desc: "Présentation du thème",
+                        href: "/theme/pas-a-pas/javascript",
                     },
                 ],
             },
@@ -93,6 +105,7 @@ const NAV_PANEL_CONTENT: Record<
             emoji: "📋",
             title: "Mise à jour 4.1",
             desc: "Installation étape par étape, pour découvrir le fonctionnement du thème.",
+            href: "/theme/changelog",
         },
     },
     Forumactif: {
@@ -104,25 +117,40 @@ const NAV_PANEL_CONTENT: Record<
                         icon: Puzzle,
                         title: "HTML & Javascript",
                         desc: "Gestion des codes",
+                        href: "/forumactif/modules/html-javascript",
                     },
                     {
                         icon: Palette,
                         title: "CSS avancé",
                         desc: "Personnalisation fine",
+                        href: "/forumactif/modules/css",
                     },
                     {
                         icon: LayoutTemplate,
                         title: "Mise en page",
                         desc: "Layouts & templates",
+                        href: "/forumactif/modules/mise-en-page",
                     },
                 ],
             },
             {
                 label: "Ressources",
                 items: [
-                    { title: "Icônes & SVG", desc: "Bibliothèque d'icônes" },
-                    { title: "Couleurs", desc: "Palettes et variables" },
-                    { title: "Typographie", desc: "Polices recommandées" },
+                    {
+                        title: "Icônes & SVG",
+                        desc: "Bibliothèque d'icônes",
+                        href: "/forumactif/ressources/icones",
+                    },
+                    {
+                        title: "Couleurs",
+                        desc: "Palettes et variables",
+                        href: "/forumactif/ressources/couleurs",
+                    },
+                    {
+                        title: "Typographie",
+                        desc: "Polices recommandées",
+                        href: "/forumactif/ressources/typographie",
+                    },
                 ],
             },
         ],
@@ -130,6 +158,7 @@ const NAV_PANEL_CONTENT: Record<
             emoji: "🚀",
             title: "Guide démarrage",
             desc: "Tout ce qu'il faut savoir pour créer votre premier forum.",
+            href: "/forumactif/guide-demarrage",
         },
     },
     Ressources: {
@@ -141,20 +170,34 @@ const NAV_PANEL_CONTENT: Record<
                         icon: Package,
                         title: "Thèmes gratuits",
                         desc: "Prêts à installer",
+                        href: "/ressources/themes",
                     },
                     {
                         icon: Plug,
                         title: "Extensions",
                         desc: "Fonctionnalités extra",
+                        href: "/ressources/extensions",
                     },
                 ],
             },
             {
                 label: "Communauté",
                 items: [
-                    { title: "Forum officiel", desc: "Aide et discussions" },
-                    { title: "Discord", desc: "Chat en temps réel" },
-                    { title: "GitHub", desc: "Code source & issues" },
+                    {
+                        title: "Forum officiel",
+                        desc: "Aide et discussions",
+                        href: "https://forum.example.com",
+                    },
+                    {
+                        title: "Discord",
+                        desc: "Chat en temps réel",
+                        href: "https://discord.gg/example",
+                    },
+                    {
+                        title: "GitHub",
+                        desc: "Code source & issues",
+                        href: "https://github.com/example",
+                    },
                 ],
             },
         ],
@@ -162,44 +205,26 @@ const NAV_PANEL_CONTENT: Record<
             emoji: "📚",
             title: "Documentation",
             desc: "Toutes les références techniques et guides avancés.",
+            href: "/ressources/documentation",
         },
     },
 };
 
-// ── Discord SVG (absent de Lucide) ────────────────────────────────────────────
-const DiscordIcon: FC<{ className?: string }> = ({ className }) => (
-    <svg
-        className={className}
-        viewBox="0 0 27 21"
-        fill="currentColor"
-        xmlns="http://www.w3.org/2000/svg"
-    >
-        <path d="M22.8454 1.71005C21.1354 0.912882 19.2839 0.334295 17.3553 0C17.3213 0.000483062 17.289 0.0143474 17.2653 0.0385728C17.0338 0.46287 16.7638 1.01574 16.5838 1.44004C14.5382 1.13165 12.4579 1.13165 10.4122 1.44004C10.2322 1.00288 9.9622 0.46287 9.71791 0.0385728C9.70505 0.0128578 9.66648 0 9.6279 0C7.69928 0.334295 5.86066 0.912882 4.13775 1.71005C4.1249 1.71005 4.11204 1.7229 4.09918 1.73576C0.601942 6.96876 -0.36237 12.0603 0.113357 17.1005C0.113357 17.1262 0.126214 17.1519 0.151929 17.1648C2.46628 18.8619 4.69063 19.8905 6.88926 20.572C6.92783 20.5848 6.9664 20.572 6.97926 20.5463C7.49356 19.8391 7.95643 19.0934 8.35501 18.3091C8.38073 18.2576 8.35501 18.2062 8.30358 18.1934C7.5707 17.9105 6.8764 17.5762 6.19495 17.1905C6.14352 17.1648 6.14352 17.0876 6.18209 17.049C6.32353 16.9462 6.46496 16.8305 6.60639 16.7276C6.63211 16.7019 6.67068 16.7019 6.69639 16.7147C11.1194 18.7334 15.8895 18.7334 20.2611 16.7147C20.2868 16.7019 20.3253 16.7019 20.3511 16.7276C20.4925 16.8433 20.6339 16.9462 20.7753 17.0619C20.8268 17.1005 20.8268 17.1776 20.7625 17.2033C20.0939 17.6019 19.3867 17.9233 18.6539 18.2062C18.6024 18.2191 18.5896 18.2834 18.6024 18.3219C19.0139 19.1062 19.4767 19.852 19.9782 20.5591C20.0168 20.572 20.0553 20.5848 20.0939 20.572C22.3054 19.8905 24.5297 18.8619 26.8441 17.1648C26.8698 17.1519 26.8827 17.1262 26.8827 17.1005C27.4484 11.276 25.9441 6.22303 22.8968 1.73576C22.884 1.7229 22.8711 1.71005 22.8454 1.71005ZM9.0236 14.0275C7.69928 14.0275 6.59353 12.8061 6.59353 11.3017C6.59353 9.79741 7.67356 8.57595 9.0236 8.57595C10.3865 8.57595 11.4665 9.81027 11.4537 11.3017C11.4537 12.8061 10.3736 14.0275 9.0236 14.0275ZM17.9853 14.0275C16.661 14.0275 15.5552 12.8061 15.5552 11.3017C15.5552 9.79741 16.6352 8.57595 17.9853 8.57595C19.3482 8.57595 20.4282 9.81027 20.4153 11.3017C20.4153 12.8061 19.3482 14.0275 17.9853 14.0275Z" />
-    </svg>
-);
-
 // ── Panel content ─────────────────────────────────────────────────────────────
 type PanelData = (typeof NAV_PANEL_CONTENT)[string];
 
+// Pure render — aucune animation ici
 function PanelContent({
     data,
-    direction,
+    onClose,
 }: {
     data: PanelData;
-    direction: "left" | "right" | null;
+    onClose: () => void;
 }) {
-    // Named animations registered in tailwind.config.ts → theme.extend.animation
-    // Keyframes stay within the overflow-hidden bounds (offset ≤ 8px)
-    const animationClass =
-        direction === "right"
-            ? "animate-slide-from-right"
-            : direction === "left"
-              ? "animate-slide-from-left"
-              : "animate-nav-fade";
+    const isExternal = (href: string) => href.startsWith("http");
 
     return (
-        <div className={`flex gap-6 pt-4 pb-1 ${animationClass}`}>
-            <NavbarBlob position="bottom" />
+        <div className="grid grid-cols-4 gap-6 pt-4 pb-1">
             {data.sections.map((section) => (
                 <div key={section.label} className="flex-1">
                     <p className="text-[10.5px] font-bold tracking-widest uppercase text-light-800 mb-2 px-2.5">
@@ -208,10 +233,12 @@ function PanelContent({
                     <ul className="flex flex-col gap-0.5">
                         {section.items.map((item) => {
                             const Icon = item.icon;
+                            const href = item.href ?? "#";
                             return (
                                 <li key={item.title}>
                                     <Anchor
-                                        href={item.href ?? "#"}
+                                        href={href}
+                                        onClick={onClose}
                                         className="flex items-center gap-2.5 px-2.5 py-2 rounded-xl hover:bg-white/5 transition-colors group"
                                     >
                                         {Icon && (
@@ -236,9 +263,10 @@ function PanelContent({
             ))}
 
             {/* Featured card */}
-            <div className="w-44 shrink-0">
+            <div className="w-full shrink-0">
                 <Anchor
                     href={data.featured.href ?? "#"}
+                    onClick={onClose}
                     className="flex flex-col gap-2 p-3.5 rounded-xl bg-white/[0.04] border border-white/[0.07] hover:bg-white/[0.07] hover:border-white/[0.12] transition-all h-full"
                 >
                     <span className="text-xl">{data.featured.emoji}</span>
@@ -254,6 +282,110 @@ function PanelContent({
                         </span>
                     </div>
                 </Anchor>
+            </div>
+        </div>
+    );
+}
+
+// ── Slider — anime l'ancien panel dehors et le nouveau dedans simultanément ──
+function PanelSlider({
+    data,
+    openIndex,
+    direction,
+    onClose,
+}: {
+    data: PanelData;
+    openIndex: number;
+    direction: "left" | "right" | null;
+    onClose: () => void;
+}) {
+    type Slot = { id: number; data: PanelData };
+
+    const [current, setCurrent] = useState<Slot>({ id: openIndex, data });
+    const [outgoing, setOutgoing] = useState<Slot | null>(null);
+
+    const directionRef = useRef(direction);
+    directionRef.current = direction;
+
+    const wrapperRef = useRef<HTMLDivElement>(null);
+    const inRef = useRef<HTMLDivElement>(null);
+    const outRef = useRef<HTMLDivElement>(null);
+    // Hauteur snapshotée avant le re-render, pour animer depuis la bonne valeur
+    const fromHeightRef = useRef<number>(0);
+
+    // ── Déclenche la transition ───────────────────────────────────────────────
+    // useEffect s'exécute APRÈS le paint courant :
+    //   • le contenu actuel est encore affiché → offsetHeight correct
+    //   • on mémorise la hauteur AVANT le prochain render
+    useEffect(() => {
+        if (current.id === openIndex) return;
+        fromHeightRef.current = wrapperRef.current?.offsetHeight ?? 0;
+        setOutgoing(current);
+        setCurrent({ id: openIndex, data });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [openIndex]);
+
+    // ── Lance les animations ──────────────────────────────────────────────────
+    // useLayoutEffect s'exécute APRÈS les mutations DOM mais AVANT le paint :
+    //   • inRef a déjà le nouveau contenu (scrollHeight = nouvelle hauteur)
+    //   • on démarre l'animation avant que le navigateur ne peigne le saut
+    useLayoutEffect(() => {
+        if (!outgoing) return;
+
+        const wrapper = wrapperRef.current;
+        const inEl = inRef.current;
+        const outEl = outRef.current;
+        if (!wrapper || !inEl || !outEl) return;
+
+        const fromH = fromHeightRef.current;
+        const toH = inEl.scrollHeight;
+
+        const dir = directionRef.current;
+        const xIn = dir === "right" ? "100%" : dir === "left" ? "-100%" : "0";
+        const xOut = dir === "right" ? "-100%" : dir === "left" ? "100%" : "0";
+
+        const opts: KeyframeAnimationOptions = {
+            duration: 320,
+            easing: "cubic-bezier(0.4, 0, 0.2, 1)",
+            fill: "both",
+        };
+
+        // Hauteur du wrapper : fromH → toH
+        wrapper.animate(
+            [{ height: `${fromH}px` }, { height: `${toH}px` }],
+            opts,
+        );
+
+        // Entrant : glisse depuis le côté
+        inEl.animate(
+            [
+                { transform: `translateX(${xIn})` },
+                { transform: "translateX(0)" },
+            ],
+            opts,
+        );
+
+        // Sortant : glisse vers le côté opposé, puis nettoyage
+        const outAnim = outEl.animate(
+            [
+                { transform: "translateX(0)" },
+                { transform: `translateX(${xOut})` },
+            ],
+            opts,
+        );
+        if (outAnim) outAnim.onfinish = () => setOutgoing(null);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [outgoing?.id]);
+
+    return (
+        <div ref={wrapperRef} className="relative overflow-hidden">
+            {outgoing && (
+                <div ref={outRef} className="absolute inset-0">
+                    <PanelContent data={outgoing.data} />
+                </div>
+            )}
+            <div ref={inRef}>
+                <PanelContent data={current.data} />
             </div>
         </div>
     );
@@ -335,11 +467,13 @@ export function Navbar({
             ref={navRef}
             className={cn(
                 // Base styles (preserved from original)
-                "navbar shrink-0 transition-all  top-1 z-20",
+                "navbar shrink-0 transition-all top-1 z-20 mb-2",
                 // Expandable styles
-                "overflow-hidden relative rounded-l-3xl",
-                isOpen ? "bg-card" : " h-15",
-                mode == "home" ? "px-8 sticky" : "",
+                "overflow-hidden relative",
+                isOpen ? "bg-card shadow-2xl" : " h-15",
+                mode == "home"
+                    ? "px-8 sticky rounded-3xl"
+                    : "px-2 rounded-l-3xl",
             )}
         >
             {/* ── Top bar ── */}
@@ -368,7 +502,7 @@ export function Navbar({
                             return (
                                 <li key={route} className="text-nav-foreground">
                                     {hasPanelContent ? (
-                                        // Items with a panel → toggle on click
+                                        // Items with a panel
                                         <button
                                             onClick={() =>
                                                 active
@@ -391,7 +525,7 @@ export function Navbar({
                                             />
                                         </button>
                                     ) : (
-                                        // Regular link items (original Anchor)
+                                        // Regular link items
                                         <Anchor
                                             href={route}
                                             className="py-1 px-3 inline-flex items-center gap-2 rounded-full hover:bg-background text-[13.5px] font-medium"
@@ -413,11 +547,11 @@ export function Navbar({
                     </button>
 
                     <a className="text-text-muted hover:text-foreground transition-colors">
-                        <DiscordIcon className="w-[27px] h-[21px]" />
+                        <DiscordIcon size={24} />
                     </a>
 
                     <a className="text-text-muted hover:text-foreground transition-colors">
-                        <Github className="w-[24px] h-[23px]" />
+                        <GithubIcon size={24} />
                     </a>
 
                     <a
@@ -431,17 +565,21 @@ export function Navbar({
 
             {/* ── Expandable panel (grid trick for smooth height) ── */}
             <div
-                className="grid transition-[grid-template-rows] duration-[280ms] ease-[cubic-bezier(0.4,0,0.2,1)]"
+                className="grid transition-[grid-template-rows] duration-[400ms] ease-[cubic-bezier(0.4,0,0.2,1)]"
                 style={{ gridTemplateRows: isOpen ? "1fr" : "0fr" }}
             >
                 <div className="overflow-hidden">
                     <div className="px-4 pb-4">
                         {activePanelData && (
-                            <PanelContent
-                                key={openIndex}
-                                data={activePanelData}
-                                direction={direction}
-                            />
+                            <>
+                                <PanelSlider
+                                    data={activePanelData}
+                                    openIndex={openIndex!}
+                                    direction={direction}
+                                    onClose={closePanel}
+                                />
+                                <NavbarBlob position="bottom" />
+                            </>
                         )}
                     </div>
                 </div>

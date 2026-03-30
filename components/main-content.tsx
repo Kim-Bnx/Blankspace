@@ -11,7 +11,10 @@ export function MainContent({ children }: { children: ReactNode }) {
     return (
         <main
             ref={scrollRef}
-            className="flex flex-1 bg-card rounded-tl-3xl overflow-auto min-h-0 relative"
+            className="flex flex-col flex-1 bg-card rounded-tl-3xl overflow-auto min-h-0 relative"
+            style={{
+                scrollbarGutter: "stable",
+            }}
         >
             <NavbarBlob position="top" />
             <div className="flex-1">

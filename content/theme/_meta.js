@@ -1,4 +1,10 @@
-import { Bookmark, Download, ScanHeart } from "lucide-react";
+import {
+    Bookmark,
+    Download,
+    ScanHeart,
+    Newspaper,
+    CircleQuestionMark,
+} from "lucide-react";
 
 export default {
     guide: {
@@ -17,10 +23,22 @@ export default {
             <span>Installation</span>
         </>
     ),
-    vitrines: (
+    vitrine: (
         <>
             <ScanHeart />
-            <span>Vitrines</span>
+            <span>Vitrine</span>
+        </>
+    ),
+    nouveautes: (
+        <>
+            <Newspaper />
+            <span>Nouveautés</span>
+        </>
+    ),
+    faq: (
+        <>
+            <CircleQuestionMark />
+            <span>FAQ et support</span>
         </>
     ),
     install: {

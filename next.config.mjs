@@ -5,6 +5,11 @@ import rehypeShiki from "@shikijs/rehype";
 const withNextra = nextra({
     contentDirBasePath: "/docs", // Or even nested e.g. `/docs/advanced`
     defaultShowCopyCode: true,
+    mdxOptions: {
+        rehypePrettyCodeOptions: {
+            theme: "github-dark-dimmed",
+        },
+    },
 });
 
 // Export the final Next.js config with Nextra included

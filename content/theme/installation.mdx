@@ -1,13 +1,62 @@
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras blandit nulla nec massa dictum fermentum. Duis eget egestas ex. Suspendisse potenti. Cras arcu quam, aliquet nec sem vitae, hendrerit feugiat enim. Ut semper condimentum elementum. Fusce ipsum ante, venenatis in mi ac, imperdiet pellentesque libero. Nulla vulputate libero urna, vel luctus ipsum bibendum a. Proin elementum condimentum pretium. Curabitur semper, libero vel condimentum ullamcorper, lorem neque pharetra mauris, at dictum est velit et ex. Morbi ullamcorper vel sem a tincidunt.
 
+```js {1,4-5}
+import { useState } from "react";
+
+function Counter() {
+    const [count, setCount] = useState(0);
+    return <button onClick={() => setCount(count + 1)}>{count}</button>;
+}
+```
+
 Morbi volutpat augue massa, ut pharetra ex accumsan nec. Suspendisse massa tortor, pretium eget arcu vel, efficitur sagittis massa. Quisque ornare consectetur libero eleifend aliquam. Nullam in mauris felis. Aenean nec rutrum ligula. Aenean porta ultricies mi, at sodales felis congue aliquet. Quisque vitae lobortis nisl. Morbi lacinia nulla urna, sed imperdiet tellus aliquam sed. Praesent quis aliquam felis, at dictum lorem. Mauris molestie quam eu turpis cursus maximus. Curabitur sit amet vehicula turpis, quis pretium nisl. Sed id pharetra nibh. Fusce libero nisl, blandit ac orci nec, tempus mattis massa. Vivamus orci est, fermentum quis ante quis, pretium viverra dui.
 
+```js /useState/
+import { useState } from "react";
+
+function Counter() {
+    const [count, setCount] = useState(0);
+    return <button onClick={() => setCount(count + 1)}>{count}</button>;
+}
+```
+
 Sed malesuada vestibulum mauris ut sagittis. Donec pharetra nisi felis, quis consequat nulla volutpat vel. Vivamus rhoncus faucibus orci eu varius. Integer blandit tellus eu feugiat imperdiet. Sed sed feugiat justo. In pretium lectus nibh, sed consequat ex posuere vitae. Suspendisse neque augue, tempus vel facilisis et, aliquam nec ligula. Sed quis turpis fringilla, lobortis lorem commodo, imperdiet orci. Quisque at laoreet ante. Quisque pulvinar sodales placerat. Mauris non leo lectus.
+
+```ansi
+[0m [0;32m✓[0m [0;2msrc/[0mindex[0;2m.test.ts (1)[0m
+  [0;2m Test Files [0m [0;1;32m1 passed[0;98m (1)[0m
+  [0;2m      Tests [0m [0;1;32m1 passed[0;98m (1)[0m
+  [0;2m   Start at [0m 23:32:41
+  [0;2m   Duration [0m 11ms
+  [42;1;39;0m PASS [0;32m Waiting for file changes...[0m
+         [0;2mpress [0;1mh[0;2m to show help, press [0;1mq[0;2m to quit
+```
 
 Suspendisse finibus vehicula sapien, consectetur suscipit ipsum venenatis non. Etiam scelerisque, leo a maximus efficitur, urna purus ultrices risus, sit amet scelerisque leo purus non lectus. Maecenas mauris tortor, tempor a faucibus at, viverra eu urna. Donec finibus lectus at augue pharetra molestie. Nullam pretium nibh risus, id rutrum libero lobortis sit amet. Cras porttitor tristique gravida. Sed in nibh et mauris commodo elementum eu ut sapien. Mauris viverra finibus est, nec placerat velit faucibus sed. Suspendisse quis orci vestibulum, hendrerit erat id, finibus lorem. Vivamus sit amet vehicula urna, eget gravida turpis. Morbi ullamcorper, nisl eu porta tincidunt, turpis lacus ullamcorper nunc, vel euismod metus orci varius sapien. In dignissim nunc non massa efficitur, nec elementum odio euismod.
 
 Donec enim turpis, pulvinar quis turpis eu, ullamcorper venenatis dolor. Integer congue mauris turpis, a egestas eros viverra sit amet. Cras est purus, pretium ac fringilla vel, pellentesque ac ligula. Vivamus ultricies commodo nisl, non vestibulum tortor ornare eu. Sed molestie dignissim lorem, vitae cursus velit congue eget. Nam rhoncus lectus vitae odio mattis feugiat. Sed eu nisl ac nunc tincidunt vehicula. Aenean quam nisi, auctor in ornare quis, viverra vel lorem. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nullam tortor elit, dapibus in lacinia at, rutrum et dolor. Aenean auctor ligula neque, vel aliquam turpis ultricies et. Nullam commodo, odio nec consectetur facilisis, orci metus elementum massa, interdum tempus odio neque vel tellus. Sed porttitor convallis mi, nec aliquet ante ullamcorper ut. Donec mollis magna eu pulvinar faucibus.
 
-```js filename="example.js"
-console.log("hello, world");
+```js filename="example.javascript"
+export default {
+    theme: {
+        title: "Thème",
+        type: "page",
+    },
+    forumactif: {
+        title: "Forumactif",
+        type: "page",
+    },
+    plugins: {
+        title: "Plugins",
+        type: "page",
+    },
+    tutoriaux: {
+        title: "Tutoriaux",
+        type: "page",
+    },
+    ressources: {
+        title: "Ressources",
+        type: "page",
+    },
+};
 ```

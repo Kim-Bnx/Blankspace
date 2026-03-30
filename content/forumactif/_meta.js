@@ -3,4 +3,7 @@ export default {
         type: "separator",
         title: "Guide", // Title is optional
     },
+    index: {
+        title: "Markdown syntax guide",
+    },
 };
