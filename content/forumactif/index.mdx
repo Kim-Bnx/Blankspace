@@ -1,79 +1,68 @@
 ---
-title: "Markdown syntax guide"
-description: "A quick reference guide to Markdown syntax for formatting text in your posts and comments."
+title: Introduction
 ---
 
-# Markdown syntax guide
+Forumactif est une plateforme permettant de créer et d’héberger gratuitement un forum en ligne.
 
-## Headers
+Basé à l’origine sur le moteur phpBB (un logiciel libre permettant de créer des forums), Forumactif propose une interface d’administration complète qui permet de personnaliser l’apparence et le fonctionnement du forum.
 
-# This is a Heading h1
+Contrairement à un site web traditionnel, l’administrateur ne dispose pas d’un accès au code backend (le code qui permet de configurer le serveur et les données du site).
 
-## This is a Heading h2
+Toute la personnalisation repose donc sur :
 
-###### This is a Heading h6
+- la modification des templates en HTML
+- l’ajout de CSS
+- l’ajout de JavaScript
 
-<GithubCodeBlock
-    url="https://github.com/shuding/nextra/blob/main/docs/app/docs/guide/syntax-highlighting/_dynamic-code.tsx"
-    wrapper={{ "data-filename": "example.ts" }}
-/>
+C’est ce qu’on appelle le code frontend.
 
-## Emphasis
+## Ce que Forumactif permet
 
-_This text will be italic_  
-_This will also be italic_
+Forumactif propose un environnement clé-en-main où la personnalisation est étonnamment accessible.
 
-**This text will be bold**  
-**This will also be bold**
+L’intégration du code est simple : il suffit généralement d’ajouter son CSS, son JavaScript ou de modifier un template dans les emplacements prévus, et la plateforme se charge du reste.
 
-_You **can** combine them_
+Aucune configuration serveur, aucune mise en ligne manuelle.
 
-## Lists
+Il est ainsi possible de :
 
-### Unordered
+- Modifier la structure des pages accessibles en template
+- Créer des pages HTML personnalisées
+- Ajouter des feuilles de style complètes
+- Injecter du JavaScript sur différentes pages
+- Réorganiser les catégories et leur hiérarchie
+- Créer et restructurer les profils utilisateurs
 
-- Item 1
-- Item 2
-- Item 2a
-- Item 2b
-    - Item 3a
-    - Item 3b
+Cette simplicité d’intégration explique pourquoi Forumactif est autant utilisé par des administrateurs débutants que par des développeurs amateurs : la barrière technique est faible, mais le potentiel reste élevé.
 
-### Ordered
+Bien maîtrisé, Forumactif permet de transformer radicalement l’apparence et l’expérience d’un forum, tout en conservant la simplicité d’une plateforme hébergée.
 
-1. Item 1
-2. Item 2
-3. Item 3
-    1. Item 3a
-    2. Item 3b
+## Ce que Forumactif ne permet pas
 
-## Images
+Certaines limitations doivent néanmoins être prises en compte :
 
-## Links
+- Aucun accès au code serveur
+- Aucun accès direct aux données internes du forum
+- Certaines pages système ne peuvent pas être modifiées
 
-You may be using [Markdown Live Preview](https://markdownlivepreview.com/).
+Parce que Forumactif existe depuis longtemps (+20 ans !), certaines parties de sa structure repose sur une logique ancienne, rigide, et parfois désuète.
 
-## Blockquotes
+On ne peut pas toujours intervenir exactement comme sur un site développé entièrement sur mesure.
 
-> Markdown is a lightweight markup language with plain-text-formatting syntax, created in 2004 by John Gruber with Aaron Swartz.
->
-> > Markdown is often used to format readme files, for writing messages in online discussion forums, and to create rich text using a plain text editor.
+Ces contraintes demandent parfois d’adapter ses idées ou de trouver des solutions alternatives. Elles encouragent une approche plus astucieuse de la personnalisation et pousser les codes frontend (HTML, CSS et JavaScript) à leur maximum.
 
-## Tables
+## La communauté Forumactif
 
-| Left columns | Right columns |
-| ------------ | :-----------: |
-| left foo     |   right foo   |
-| left bar     |   right bar   |
-| left baz     |   right baz   |
+Forumactif dispose d’un forum officiel d’entraide où administrateurs et modérateurs partagent tutoriels, scripts et solutions.
 
-## Blocks of code
+La communauté joue un rôle central dans l’évolution des pratiques de personnalisation. De nombreux modules et méthodes aujourd’hui courants sont issus de ce partage collectif.
 
-```js
-let message = "Hello world";
-alert(message);
-```
+## Comprendre avant de modifier
 
-## Inline code
+Avant de personnaliser un forum, il est essentiel de comprendre son fonctionnement interne.
 
-This web site is using `markedjs/marked`.
+Le Blank repose entièrement sur la logique native de Forumactif.
+
+Il n’a pas été créé pour remplacer la plateforme : il en exploite pleinement les possibilités et offres à ses utilisateurs les outils adaptés pour les exploiter.
+
+Les sections suivantes ont pour objectif de vous aider à comprendre cette structure afin de personnaliser votre forum de manière propre, cohérente et durable.
