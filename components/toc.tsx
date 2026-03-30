@@ -93,7 +93,7 @@ export const TOC: FC<{ toc: Heading[] }> = ({ toc }) => {
 
                 {/* Active indicator line */}
                 <div
-                    className="absolute left-0 w-px bg-violet-400 transition-all duration-300"
+                    className="absolute left-0 w-px bg-accent transition-all duration-300"
                     style={{
                         top: indicator.top,
                         height: indicator.height,
@@ -129,7 +129,7 @@ export const TOC: FC<{ toc: Heading[] }> = ({ toc }) => {
                                     className={[
                                         "block py-1 px-3 text-sm transition-colors duration-150",
                                         isActive
-                                            ? "text-violet-400 font-medium"
+                                            ? "text-accent font-medium"
                                             : "text-white/50 hover:text-white/80",
                                     ].join(" ")}
                                 >
