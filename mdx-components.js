@@ -2,6 +2,7 @@ import { useMDXComponents as getNextraComponents } from "nextra/mdx-components";
 import { TOC } from "@/components/toc";
 import Callout from "@/components/mdx/callout";
 import AdminPanelHelper from "@/components/mdx/admin-panel-helper";
+import GithubCodeBlock from "@/components/mdx/github-code-block";
 import { Pre } from "@/components/mdx/pre";
 import { Code } from "@/components/mdx/code";
 import { Link } from "@/components/mdx/link";
@@ -18,6 +19,7 @@ const defaultComponents = getNextraComponents({
     a: Link,
     code: Code,
     pre: Pre,
+    GithubCodeBlock,
     Callout,
     AdminPanelHelper,
 });

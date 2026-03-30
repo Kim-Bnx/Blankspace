@@ -39,7 +39,7 @@ export default function AdminPanelHelper({
                 </div>
             )}
 
-            <div className="grid grid-cols-[max-content_1fr] gap-y-1">
+            <div className="grid grid-cols-[minmax(min-content,1fr)_1fr] gap-y-1">
                 {actions &&
                     actions.length > 0 &&
                     actions.map((action, index) => (
@@ -87,7 +87,12 @@ export default function AdminPanelHelper({
                                             </span>
                                         </>
                                     ) : (
-                                        <span className="text-accent-alt">
+                                        <span
+                                            className={cn(
+                                                "flex gap-1 text-accent-alt",
+                                            )}
+                                        >
+                                            <SquareCheck className="w-5" />
                                             {action[1]}
                                         </span>
                                     )}

@@ -18,57 +18,83 @@ const FolderItem: FC<{
     renderItem: (item: DirectoryItem) => React.ReactNode;
 }> = ({ item, pathname, renderItem }) => {
     const [open, setOpen] = useState(true);
+    const route = item.route || ("href" in item ? (item.href as string) : "");
+    const isActive = pathname === route;
 
     return (
         <li>
-            <button
-                onClick={() => setOpen((o) => !o)}
-                className="w-full py-2 px-4 text-sm flex items-center justify-between rounded-xl text-light-800 hover:text-light-100 transition-colors"
-            >
-                <span>{item.title}</span>
-                <svg
+            <div className="flex items-center justify-between rounded-xl text-light-800 hover:text-light-100 transition-colors">
+                <Anchor
+                    href={route}
                     className={cn(
-                        "size-4 transition-transform",
-                        open ? "rotate-180" : "",
+                        "flex-1 py-2 pl-4 text-sm transition-colors",
+                        isActive
+                            ? "font-semibold text-accent-600"
+                            : "hover:text-light-100",
                     )}
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth={2}
                 >
-                    <path d="m6 9 6 6 6-6" />
-                </svg>
-            </button>
+                    {item.title}
+                </Anchor>
+                <button
+                    onClick={() => setOpen((o) => !o)}
+                    className="py-2 pr-4 text-light-800 hover:text-light-100 transition-colors"
+                    aria-label={open ? "Réduire" : "Développer"}
+                >
+                    <svg
+                        className={cn(
+                            "size-4 transition-transform",
+                            open ? "rotate-180" : "",
+                        )}
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                    >
+                        <path d="m6 9 6 6 6-6" />
+                    </svg>
+                </button>
+            </div>
             {open && (
                 <ul className="flex flex-col ml-4 border-l border-border">
                     {"children" in item &&
-                        item.children.map((child) => {
-                            if ("children" in child) {
-                                return renderItem(child);
-                            }
+                        item.children
+                            .filter((child) => {
+                                const childRoute =
+                                    child.route ||
+                                    ("href" in child
+                                        ? (child.href as string)
+                                        : "");
+                                return childRoute !== route;
+                            })
+                            .map((child) => {
+                                if ("children" in child) {
+                                    return renderItem(child);
+                                }
 
-                            const route =
-                                child.route ||
-                                ("href" in child ? (child.href as string) : "");
-                            const isActive = pathname === route;
+                                const route =
+                                    child.route ||
+                                    ("href" in child
+                                        ? (child.href as string)
+                                        : "");
+                                const isActive = pathname === route;
 
-                            return (
-                                <li key={route}>
-                                    <Anchor
-                                        href={route}
-                                        className={cn(
-                                            "py-1 px-4 text-sm flex items-center gap-2 border-l -ml-px rounded-none hover:text-light-100 transition-colors [&_svg]:size-4",
-                                            isActive
-                                                ? "font-semibold text-accent-600 border-l-accent"
-                                                : "text-light-800 border-l-transparent hover:border-l-white",
-                                        )}
-                                    >
-                                        {child.title}
-                                    </Anchor>
-                                </li>
-                            );
-                        })}
+                                return (
+                                    <li key={route}>
+                                        <Anchor
+                                            href={route}
+                                            className={cn(
+                                                "py-1 px-4 text-sm flex items-center gap-2 border-l -ml-px rounded-none hover:text-light-100 transition-colors [&_svg]:size-4",
+                                                isActive
+                                                    ? "font-semibold text-accent-600 border-l-accent"
+                                                    : "text-light-800 border-l-transparent hover:border-l-white",
+                                            )}
+                                        >
+                                            {child.title}
+                                        </Anchor>
+                                    </li>
+                                );
+                            })}
                 </ul>
             )}
         </li>
