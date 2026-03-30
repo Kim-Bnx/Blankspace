@@ -39,52 +39,63 @@ export default function AdminPanelHelper({
                 </div>
             )}
 
-            {actions &&
-                actions.length > 0 &&
-                actions.map((action, index) => (
-                    <div
-                        key={index}
-                        className={cn(
-                            "flex gap-4 py-2 rounded-md bg-[#2A282E]/50 pl-8",
-                        )}
-                    >
-                        <span className="text-primary-foreground font-semibold">
-                            {action[0] + (action.length > 1 ? " :" : "")}
-                        </span>
-                        {action[1] && (
-                            <span className="flex gap-4">
-                                <span
-                                    className={cn(
-                                        "flex gap-1",
-                                        action[1] === "Oui" &&
-                                            "text-accent-alt",
-                                    )}
-                                >
-                                    {action[1] === "Oui" ? (
-                                        <SquareCheck className="w-5" />
-                                    ) : (
-                                        <Square className="w-5" />
-                                    )}{" "}
-                                    Oui
-                                </span>
-                                <span
-                                    className={cn(
-                                        "flex gap-1",
-                                        action[1] === "Non" &&
-                                            "text-accent-alt",
-                                    )}
-                                >
-                                    {action[1] === "Non" ? (
-                                        <SquareCheck className="w-5" />
-                                    ) : (
-                                        <Square className="w-5" />
-                                    )}{" "}
-                                    Non
-                                </span>
+            <div className="grid grid-cols-2 gap-y-2">
+                {actions &&
+                    actions.length > 0 &&
+                    actions.map((action, index) => (
+                        <div
+                            key={index}
+                            className={cn(
+                                "col-span-2 grid grid-cols-subgrid py-2 rounded-md bg-[#2A282E]/50 pl-8",
+                            )}
+                        >
+                            <span className="text-primary-foreground font-semibold">
+                                {action[0] + (action.length > 1 ? " :" : "")}
                             </span>
-                        )}
-                    </div>
-                ))}
+                            {action[1] && (
+                                <span className="flex gap-4">
+                                    {action[1] === "Oui" ||
+                                    action[1] === "Non" ? (
+                                        <>
+                                            <span
+                                                className={cn(
+                                                    "flex gap-1",
+                                                    action[1] === "Oui" &&
+                                                        "text-accent-alt",
+                                                )}
+                                            >
+                                                {action[1] === "Oui" ? (
+                                                    <SquareCheck className="w-5" />
+                                                ) : (
+                                                    <Square className="w-5" />
+                                                )}{" "}
+                                                Oui
+                                            </span>
+                                            <span
+                                                className={cn(
+                                                    "flex gap-1",
+                                                    action[1] === "Non" &&
+                                                        "text-accent-alt",
+                                                )}
+                                            >
+                                                {action[1] === "Non" ? (
+                                                    <SquareCheck className="w-5" />
+                                                ) : (
+                                                    <Square className="w-5" />
+                                                )}{" "}
+                                                Non
+                                            </span>
+                                        </>
+                                    ) : (
+                                        <span className="text-accent-alt">
+                                            {action[1]}
+                                        </span>
+                                    )}
+                                </span>
+                            )}
+                        </div>
+                    ))}
+            </div>
         </div>
     );
 }

@@ -16,7 +16,7 @@ export const NextraTheme: FC<{
                 <Sidebar pageMap={pageMap} />
 
                 <ScrollProvider>
-                    <section className="flex flex-col flex-1 min-h-0 gap-4">
+                    <section className="flex flex-col flex-1 min-h-0 gap-2">
                         <Navbar pageMap={pageMap} mode="docs" />
                         <MainContent>{children}</MainContent>
                     </section>
