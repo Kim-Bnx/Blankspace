@@ -39,14 +39,14 @@ export default function AdminPanelHelper({
                 </div>
             )}
 
-            <div className="grid grid-cols-2 gap-y-2">
+            <div className="grid grid-cols-[max-content_1fr] gap-y-1">
                 {actions &&
                     actions.length > 0 &&
                     actions.map((action, index) => (
                         <div
                             key={index}
                             className={cn(
-                                "col-span-2 grid grid-cols-subgrid py-2 rounded-md bg-[#2A282E]/50 pl-8",
+                                "col-span-2 grid grid-cols-subgrid py-2 gap-4 rounded-md bg-[#2A282E]/50 pl-8",
                             )}
                         >
                             <span className="text-primary-foreground font-semibold">
