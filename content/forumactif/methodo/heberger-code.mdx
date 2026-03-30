@@ -1,0 +1,110 @@
+---
+title: Héberger du code externe
+---
+
+Il peut s'avérer très utile de coder en dehors du panneau d'administration de Forumactif. Son interface est accessible, mais peu ergonomique et sa capacité de stockage est limitée.
+
+Écrire du code dans un fichier dédié puis l’héberger pour l’intégrer ensuite au forum est une pratique très courante.
+
+## Créer un fichier de code
+
+Un fichier de code ressemble à un fichier texte, mais son format (`.css`, `.js`, etc.) permet aux navigateurs de l’interpréter comme du code.
+
+1. Téléchargez un logiciel d’édition de code (aussi appelé *IDE*) :
+    - **Sublime Text** : simple, accessible et léger
+    - **VSCode** : le plus populaire ; très complet mais son interface peut intimider au début
+2. Créez un fichier
+3. Écrivez votre code
+4. Enregistrez le fichier avec l’extension correspondant au langage :
+    - `fichier.css` pour du CSS
+    - `fichier.js` pour du JavaScript
+
+## Importer un fichier
+
+### CSS
+
+Un fichier CSS est communément appelé **feuille de style**.
+
+Une feuille de style s’intègre dans la partie `<head>` d’une page HTML, située dans le template `overall_header`.
+
+La balise `<link>` permet d’intégrer des sources externes :
+
+```html
+<link rel="stylesheet" href="LIEN DU FICHIER.css" />
+```
+
+### JavaScript
+
+Un script stocké dans un fichier peut être intégré à différents endroits d’une page HTML.
+
+- > Voir /scripts/integrer-script
+
+La balise `<script>` est utilisé pour intégrer du code exécutable :
+
+```html
+<script src="LIEN DU FICHIER.js"></script>
+```
+
+<Callout type="info" title="Remarquez :">
+- la balise `<link>` est auto-fermante, elle se suffit à elle-même : `<link href="..." />`
+- la balise `<script>` doit être ouverte et fermée, même si elle ne contient rien : `<script></script>`
+</Callout>
+
+## Héberger un fichier
+
+Il existe de nombreuses solutions pour héberger des fichiers sur internet. Les solutions ci-dessous ne sont pas forcément les plus optimisées, mais elles sont les plus simples à mettre en place.
+
+### Dropbox (recommandé)
+
+[Dropbox](<https://www.dropbox.com/>) est une solution d'hébergement bien connue. Sa version gratuite offre un espace de stockage jusqu'à 2go (ce qui est très largement suffisant pour du code).
+
+1. Créez-vous un compte et ajoutez votre fichier depuis votre ordinateur
+2. Récupérez le lien et copiez-le
+3. Modifiez le lien en remplaçant le `www` par `dl` et en supprimant la fin du lien `&dl=0`
+
+Exemple, ce lien :
+
+```html
+htps://www.dropbox.com/s/xhr8hdeb7csww8i/cssPourMonForum.css?rlkey=545taw5mbjoulb3&dl=0
+
+Devient :
+
+```html
+htps://dl.dropbox.com/s/xhr8hdeb7csww8i/cssPourMonForum.css?rlkey=545taw5mbjoulb3
+```
+
+<aside>
+<img src="/icons/info-alternate_blue.svg" alt="/icons/info-alternate_blue.svg" width="40px" />
+
+Bonus : si vous installez l’application Dropbox et utilisez la synchronisation des fichiers entre votre ordinateur et votre compte, vous pourrez modifier votre CSS directement depuis votre éditeur de code.
+À chaque sauvegarde, le fichier sera automatiquement mis à jour dans Dropbox. Une ou deux secondes plus tard, les modifications seront visibles sur votre forum.
+
+</aside>
+
+### Archive Host
+
+[Archive Host](https://www.archive-host.com/) est un site austère (pour ne pas dire vieillot) mais qui est simple d'utilisation et gratuit.
+
+1. Créez un compte (qui requiert votre adresse physique pour des questions de sécurité)
+2. Restez sur la page des fichiers
+3. Ajoutez votre fichier CSS en cliquant sur le bouton ou en le glissant dans la page et attendez la validation
+4. Faites clic droit → informations & codes et récupérez le premier lien fourni, qui devrait ressembler à `https://www.aht.li/486486/cssPourMonForum.css`
+
+<Callout type="warning">
+Vous devrez répéter l’opération à chaque modification de votre fichier.
+</Callout>
+
+### Github (optimisé)
+
+[GitHub](https://github.com/) est la plateforme la plus populaire pour stocker et partager du code. C’est notamment sur GitHub que le code du Blank est hébergé.
+
+GitHub n’est pas un hébergeur de fichiers classique : il fonctionne avec des dépôts de code (repositories) et un système de gestion de versions. Cela permet de suivre les modifications d’un projet et de collaborer plus facilement.
+
+Il est toutefois possible d’utiliser GitHub pour héberger des fichiers destinés à être utilisés sur un site web.
+
+Pour cela, on utilise généralement des services complémentaires comme :
+
+- JSDelivr : un CDN permettant de charger rapidement un fichier stocké sur GitHub
+- GitHub Pages : un service permettant d’héberger directement des fichiers web
+
+Cette documentation ne détaillera pas cette méthode. Elle est simplement mentionnée ici pour présenter les solutions les plus utilisées par les développeurs.

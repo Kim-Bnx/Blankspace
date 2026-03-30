@@ -1,0 +1,68 @@
+---
+title: Intégrer des scripts
+---
+
+Un script peut être intégré en texte brute dans une page HTML ou par l’importation d’un fichier. Il s’exécute différemment selon son emplacement dans la page :
+
+### Script dans le `<head>`
+
+```html
+<script src="script.js"></script>
+<script>sayHello();</script>
+```
+
+Les scripts placés dans la balise `<head>` (dans le template `overall_header`) sont chargés **avant** le chargement complet page.
+
+C’est utile quand on veut effectuer une action avant que les éléments apparaissent.
+
+- exemple : forcer le thème clair ou sombre
+
+Ca pose problème quand le script doit manipuler un élément HTML puisqu’il n’est pas encore chargé.
+
+- exemple : déplacer un champ de profil dans un autre onglet
+
+### Script en fin de `</body>`
+
+```html
+<body>
+	...
+	<script src="script.js"></script>
+	<script>sayHello();</script>
+</body>
+```
+
+Dans ce cas, le script s’exécute **après** le chargement de la page.
+
+C’est l’intégration la plus sûre pour manipuler du HTML, c’est pourquoi vous trouverez beaucoup de balise `<script>` dans les templates, et particulièrement les templates `overall_footer`.
+
+### Script dans le gestionnaire de Javascript
+
+Forumactif dispose d’une interface dédiée pour écrire des scripts. Il faut impérativement l’activer. Dans le panneau d’administration :
+
+<AdminPanelHelper
+icon="Puzzle"
+breadcrumbs="Module, HTML & Javascript, Gestion des codes Javascript"
+actions={
+  [["Activer la gestion des codes Javascript", "Oui"]]
+}
+/>
+
+Lorsque vous créer un nouveau code Javascript, vous avez la possibilité de limiter l’exécution du script selon le rôle des utilisateurs et la page du forum.
+
+Choisissez la page la plus adaptée à l’exécution du script :
+
+- S’il s’agit d’un script global qui agit sur toutes les pages, choisissez : **sur toutes les pages**
+- S’il s’agit d’un script précis, choisissez : la place correspondante
+
+Il est judicieux de choisir l’emplacement de son script pour éviter qu’il charge et s’exécute dans une page où il n’a pas d’action à réaliser. Le chargement de la page sera plus léger et cela évitera les erreurs inattendus. 
+
+Les scripts créés dans cette section est intégré automatiquement par Forumactif dans la partie `<head>` de la page. Vous pouvez retrouver la variable qui génère le script dans le template `overall_header` :
+
+```html
+<!-- Importation des scripts du panneau admin -->
+{HOSTING_JS}
+```
+
+<Callout type="alert">
+Ce qui veut dire que tout les scripts créés dans le gestionnaire doivent être forcés d’attendre le chargement de la page pour s’exécuter. 
+</Callout>

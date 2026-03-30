@@ -1,0 +1,350 @@
+---
+title: Scripts
+---
+
+En programmation informatique, un script est un outils qui permet de manipuler des fonctionnalités selon les conditions définis. 
+
+C’est en utilisant du JavaScript (JS) qu’il est possible de créer des fonctionnalités et de manipuler des éléments sur Forumactif. Avec, il est possible de :
+
+- modifier du contenu
+- transformer un élément HTML
+- afficher ou masquer un élément
+- réagir à un clic
+- sauvegarder des informations
+- ajouter de nouvelles fonctionnalités
+
+<Callout type="info" title="La différence avec le HTML et le CSS">
+Le HTML et le CSS sont des langages informatiques dit “déclaratifs”. `<a>` définit un texte comme un lien et text: red; donne la couleur rouge. 
+
+Le Javascript est un langage de programmation. L’utiliser demande une logique différente : il s’agit de concevoir un ensemble d’instruction, dans un ordre précis, afin de résoudre un problème. 
+
+Son utilisation demande un apprentissage plus abouti que ce que vous trouverez sur cette page. Pour autant, c’est un langage simple à lire dont le principe est à portée de tous. Comprendre son fonctionnement c’est comprendre un peu mieux le fonctionnement de votre forum.
+</Callout>
+
+<Callout type="info" title="Abréviation">
+Le JavaScript est abrégé par JS. 
+
+N’utilisez pas le terme “Java” pour le désigner, car il s’agit d’un tout autre langage.
+</Callout>
+
+## Lexique
+
+- Variable : stocke une valeur
+    - Type : nature de la valeur stockée
+    - String : valeur texte entre guillemet, ex : `"ceci est un string"`
+    - Number : valeur numérique, ex : `5`
+    - Boolean : valeur logique, ex : `true / false`
+    - Array : liste de valeur, ex : `["red", "blue", "green"]`
+    - Object : ensemble de valeur associé des propriétés, ex : `{ proriété: valeur, couleur: rouge }`
+- Fonction : bloc de code exécutable
+- Sélecteurs : permet de cibler un élément HTML
+- Évènement : action de l’utilisateur (clic, survol, …)
+- DOM : valeur qui contient la structure HTML entière d’une page
+
+## Syntaxe
+
+<Callout type="warning">
+Le JS est sensible à la case : `message` et `meSSAge` sont deux noms de variable différentes. 
+</Callout>
+
+### Variable
+
+Une variable permet de stocker une information. Une valeur se déclare ainsi :
+
+```jsx
+const message = "Bonjour !";
+```
+
+- `const` → déclare une variable
+- `message` → nom de la variable, qui devient un identifiant
+- `"bonjour"` → valeur
+
+Chaque instruction se termine par un `;`
+
+Pour lire le contenu de la variable, il suffit simplement d’écrire son nom :
+
+```jsx
+message
+// Valeur : "Bonjour !"
+```
+
+<Callout type="info">
+L’usage commun veut qu’on utilise l’écriture en camelCase pour les noms de variables. On écrit d’abord en minuscule et s’il y a plus de deux mots, ils sont séparés par des majuscules. Exemple : `blankTheme` ou `boxTextColor`
+
+L’usage de l’anglais est à la discrétion de chacun mais préféré par la majorité.
+</Callout>
+
+<Callout type="alert">
+L'utilisation des tirets `-` est prohibé dans les noms de variable, car le Javascript l'interprète comme l'opérateur mathétique de soustraction.
+Les tirets `_` sont autorisés mais peu utilisés.
+</Callout>
+
+
+### Fonction
+
+Pour créer un script, JavaScript créé une fonction de la sorte :
+
+```jsx
+function sayHello() {
+	// dire bonjour
+}
+```
+
+A l’inverse du HTML ou CSS qui sont lus et interprété directement par le navigateur, il faut exécuter une fonction manuellement :
+
+```jsx
+sayHello();
+```
+
+Résultat : `Bonjour !`
+
+Une fonction peut avoir des paramètres qui modifie son résultat :
+
+```jsx
+function sayHello(message) {
+	const salutation = message;
+	// dire salutation
+}
+
+sayHello("Salut salut !"); // exécution avec un paramètre personnalisé
+```
+
+Résultat : `Salut salut !`
+
+<Callout type="info">
+Les arguments sont très utiles pour modifier les options d’un script sans en changer le code. C’est pour ça que certains plugins intégrés dans le Blank (*Switcheroo, Wombat, Notiffi…*) sont paramétrables dans les templates. Ils s’exécutent avec les options :
+
+`Notiffi.init({ disableIcon: true });`
+</Callout>
+
+### Commentaire
+
+Pour écrire un commentaire en JS (très très recommandé), il y a deux syntaxes :
+
+```jsx
+/* Fonction pour dire bonjour */
+function sayHello() { ... }
+
+sayHello(); // Bonjour !
+```
+
+## Type de valeur
+
+Les valeurs sont des données enregistrer et manipuler par le JavaScript. Elles existent sous différent type :
+
+### `string`
+
+Du texte entre guillemet :
+
+```jsx
+const name = "Blank";
+```
+
+### `number`
+
+Une valeur numérique :
+
+```jsx
+const size = 50;
+```
+
+### `boolean`
+
+Valeur logique : vrai `true` ou faux `false`
+
+```jsx
+const good = true;
+```
+
+### `array`
+
+Liste de valeur, aussi appelé “tableau” en français. Chaque valeur est séparée par une virgule `,`
+
+La liste peut contenir des valeurs de différent type :
+
+```jsx
+let colors = ["red", "blue", "green"];
+
+let number = ["cinq", 5, true]
+```
+
+### `object`
+
+Une valeur plus complexe qui contient une collection de clé / valeur :
+
+```jsx
+const dog = {
+	name: "Loulou",
+	color: "Black",
+	age: 12,
+	good: true,
+	nickname: ["loulou", "lou", "pouillou", "le chien", "papy"],
+}
+```
+
+- `dog` → nom de la variable
+- `name` → clé
+- `“loulou”` → valeur
+- chaque entrée (clé/valeur) doit être séparé par une virgule `,`
+- un objet peut contenir des valeurs de type multiple
+
+Pour lire une valeur précise contenu dans un objet, il faut ajouter le nom de sa clé en plus du nom de la variable :
+
+```jsx
+dog.name
+// Valeur : "Loulou"
+```
+
+## Fonction natives
+
+Javascript possède une multitude de fonction natives ou *“method”* en anglais. C’est une boîte d’outils prêt à l’emploi très pratique. 
+
+Pour transformer un texte en majuscule, il existe une fonction déjà pré-faite : 
+
+```jsx
+const message = "Bonjour !";
+
+message.toUpperCase(); 
+// Résultat : "BONJOUR !"
+```
+
+Elles s’utilisent à l’intérieur de n’importe quelle fonction :
+
+```jsx
+function sayHello() {
+	const message = "Bonjour !";
+	message.repeat(2);
+}
+	
+sayHello();
+// Résultat : "Bonjour ! Bonjour !"
+```
+
+Il est également possible de combiner plusieurs fonction native :
+
+```jsx
+const message = "Bonjour !";
+
+message.repeat(3).toUpperCase();
+// Résultat : "BONJOUR ! BONJOUR ! BONJOUR !"
+```
+
+Comme les propriétés CSS, il est difficile de connaître toutes les fonctions natives existantes. Ce sont des connaissances qui viennent avec la pratique et une bonne dose de recherche sur le web.
+
+## Manipuler du HTML
+
+Le JavaScript est un langage conçu pour être utilisé dans des pages web afin qu’il puisse interagir avec le HTML. 
+
+Pour interagir avec un élément HTML, le JS utilise les mêmes sélecteurs que le CSS. 
+
+→ Voir /styles/sélecteurs
+
+Prenons l’élément :
+
+```html
+<div class="box">Bonjour !</div>
+```
+
+Pour le récupérer en JS :
+
+```jsx
+document.querySelector(".box");
+```
+
+- `document` → représentation de la page web
+- `querySelector()` → la fonction native pour récupérer un élément
+- `.box` → le sélecteur par la classe
+
+<Callout type="info">
+Un sélecteur en Javascript doit toujours être contenu entre guillemet `""` car il est interprété comme une valeur de type `string`
+</Callout>
+
+Et parce qu’on peut combiner des fonctions natives entre elles, on peut changer le texte contenu dans l’élément HTML ciblé :
+
+```jsx
+document.querySelector(".box").textContent = "Hellooo";
+```
+
+Le JS peut devenir rapidement bavard. Heureusement, on peut aussi stocker un élément HTML dans une variable :
+
+```jsx
+const box = document.querySelector(".box");
+box.textContent = "Hellooo"; 
+```
+
+Résultat :
+
+```html
+<div class="box">Hellooo</div>
+```
+
+### Utilisation sur Forumactif
+
+La majorité des scripts utilisés sur Forumactif reposent sur ces fonctions de manipulation HTML. Les templates ont leurs limites et il s’agit de la meilleure méthode pour modifier des éléments inaccessibles. 
+
+Dans le cas où vous auriez effectué des changements dans le HTML de vos templates et que vous êtes amenés à modifier un script déjà existant (inclus dans le Blank ou issu d’un libre-service), il est possible que vous deviez changer un ou plusieurs sélecteurs. 
+
+C’est le problème le plus récurrent que rencontre un utilisateur. 
+
+## Interactions
+
+JavaScript permet de réagir aux actions de l’utilisateur.
+
+Par exemple, au clic sur un bouton :
+
+```jsx
+const button = document.querySelector(".button");
+
+button.addEventListener("click", function() {
+	// dire bonjour
+});
+
+// Résultat AU CLIC : "Bonjour !"
+```
+
+- `addEventListener` → la fonction qui permet d’écouter un évènement (une action)
+- `"click"` → le type d’évènement, ici le clic
+- → la fonction s’exécute lorsque l’évènement se produit
+
+C’est un mécanisme utilisé pour créer des pop-up ou des menus latéraux. La logique est d’ajouter puis de retirer une classe à l’élément qui doit s’afficher. 
+
+Par exemple, avec un bouton et un popup :
+
+```html
+<div class="button">Ouvrez</div>
+
+<div class="popup">Bonjour !</div>
+```
+
+La popup est par défaut cachée en CSS :
+
+```css
+.popup {
+	opacity: 0;
+}
+```
+
+Avec le Javascript, on va ajouter une nouvelle classe `.open` à l’élément popup pour dire de s’afficher au clic du bouton :
+
+```jsx
+const button = document.querySelector(".button");
+const popup = document.querySelector(".popup");
+
+button.addEventListener("click", function() {
+	popup.classList.add("open");
+});
+```
+
+Désormais au clic, l’élément popup ressemble à ça :
+
+```html
+<div class="popup open">Bonjour !</div>
+```
+
+Et il est visible car la classe `.open` lui indique de s’afficher :
+
+```css
+.popup.open {
+	opacity: 1;
+}
+```
