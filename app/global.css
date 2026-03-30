@@ -57,7 +57,7 @@
 
 html:not([data-scroll="0"]) .navbar,
 html:not([data-scroll]) .navbar {
-    @apply bg-card/80;
+    @apply bg-card;
 }
 
 html:not([data-scroll]) .navbar {
@@ -78,10 +78,6 @@ h6 {
 }
 svg[height="0"][aria-hidden="true"] {
     position: fixed;
-}
-.noise {
-    filter: url(#grain);
-    clip-path: inset(0);
 }
 .copy {
     @apply text-light-300;

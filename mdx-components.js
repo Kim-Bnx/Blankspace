@@ -11,7 +11,7 @@ const defaultComponents = getNextraComponents({
     wrapper({ children, toc }) {
         return (
             <div className="wrapper flex max-w-7xl w-full mx-auto gap-10">
-                <div className="flex-1">{children}</div>
+                <div className="flex-1 copy">{children}</div>
                 <TOC toc={toc} />
             </div>
         );
