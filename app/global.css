@@ -200,6 +200,7 @@ svg[height="0"][aria-hidden="true"] {
 
 code.nextra-code {
     box-decoration-break: slice;
+    white-space: break-spaces;
     font-feature-settings:
         "rlig" 1,
         "calt" 1,

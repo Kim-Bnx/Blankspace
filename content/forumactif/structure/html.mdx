@@ -1,4 +1,4 @@
-Le HTML (*HyperText Markup Language / langage de balisage pour l’hypertexte*) est le langage utilisé pour créer et structurer le contenu d’une page web.
+Le HTML (_HyperText Markup Language / langage de balisage pour l’hypertexte_) est le langage utilisé pour créer et structurer le contenu d’une page web.
 
 On peut le voir comme le squelette : il décrit ce qui existe sur la page (titres, paragraphes, boutons, images…).
 
@@ -46,6 +46,7 @@ Mais quelle est la différence entre `<div>` et `<span>` ?
 Il n’est pas toujours possible de deviner les propriétés par défaut d’une balise. Ces connaissances s’acquièrent avec la pratique et la consultation de la documentation officielle.
 
 Voir la [documentation officielle](https://developer.mozilla.org/fr/docs/Web/HTML/Reference/Elements) de toutes les balises HTML.
+
 </Callout>
 
 ### Balises personnalisées
@@ -71,11 +72,11 @@ Les éléments HTML peuvent être placés à l’intérieur d’autres élément
 
 ```html
 <div>
-	<h1>Le Blank Thème est un thème Forumactif</h1>
+    <h1>Le Blank Thème est un thème Forumactif</h1>
 </div>
 ```
 
-Cela créer une hiérarchie entre les éléments qu’on définit avec les termes parents / enfants : 
+Cela créer une hiérarchie entre les éléments qu’on définit avec les termes parents / enfants :
 
 - `<div>` est le parent de **h1**
 - `<h1>` et `<p>` sont les enfants de **div**
@@ -87,7 +88,7 @@ Un élément enfant doit toujours être fermé **avant** son parent.
 	<h1>Le Blank Thème est un thème Forumactif</div>
 ```
 
-C’est l’erreur la plus courante en HML. Elle engendre un résultat inattendu (et parfois spectaculaire) : signe que le problème est une simple erreur de syntax.
+C’est l’erreur la plus courante en HTML. Elle engendre un résultat inattendu (et parfois spectaculaire) : signe que le problème est une simple erreur de syntaxe.
 
 ## Attributs
 
@@ -136,8 +137,7 @@ Un **id** identifie un élément de façon unique sur une page. En règle géné
 - `src` : source d’une image, d’une vidéo, etc.
 
 ```html
-<a href="/t123">Voir le sujet</a>
-<img src="avatar.png" alt="Avatar">
+<a href="/t123">Voir le sujet</a> <img src="avatar.png" alt="Avatar" />
 ```
 
 ### `data-*` (attributs personnalisés)
@@ -145,25 +145,28 @@ Un **id** identifie un élément de façon unique sur une page. En règle géné
 Les attributs `data-` sont très utiles pour stocker une information personnalisée. Ils sont très utiles pour changer dynamiquement les informations d’un élément HTML avec du Javascript.
 
 ```html
-<body data-color-theme="light">...</body>
+<body data-color-theme="light">
+    ...
+</body>
 ```
 
 <Callout type="info" title="Attributs spécifiques">
-Certain attribut sont utilisables sur toutes les balises (`class`, `id`). D’autre attribut sont spécifiques à certaine balise, comme le href d’une balise lien `<a>`. 
+Certain attribut sont utilisables sur toutes les balises (`class`, `id`). D’autre attribut sont spécifiques à certaine balise, comme le href d’une balise lien `<a>`.
 
 Ces différences s’apprennent avec la pratique et la lecture de la documentation.
 
 Exemple : [documentation officielle](https://developer.mozilla.org/fr/docs/Web/HTML/Reference/Elements/a#attributs) de la balise `<a>`
+
 </Callout>
 
 ## Commentaires
 
-En HTML (et comme dans la majorité des langages de code), il est possible d’écrire des commentaires dans le code. Ils sont ignorés par le navigateur et invisibles par les visiteurs de la page. 
+En HTML (et comme dans la majorité des langages de code), il est possible d’écrire des commentaires dans le code. Ils sont ignorés par le navigateur et invisibles par les visiteurs de la page.
 
-Vous trouvez de nombreux de commentaire dans les codes du Blank. Ils sont essentiels pour indiquer ce à quoi on a à faire.
+Vous trouvez de nombreux commentaires dans les codes du Blank. Ils sont essentiels pour indiquer ce à quoi on a à faire.
 
 Pour écrire un commentaire HTML, il faut l’entourer de marqueurs spéciaux `<!--` et `-->`
 
 ```html
 <!-- Ceci est un commentaire -->
- ```
+```

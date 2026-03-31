@@ -4,21 +4,22 @@ Accédez au panneau d’administration afin de paramétrer les options nécessai
 Ces paramètres concernent uniquement l’affichage général du forum.
 
 Une configuration plus approfondie des fonctionnalités pourra être nécessaire selon vos besoins.
+
 </Callout>
 
 ## Configuration rapide
 
 Si votre forum est déjà en place ou si vous êtes familier avec les réglages Forumactif, assurez-vous que :
 
-- [ ]  la version du forum est **ModernBB**
-- [ ]  le **CSS de base est désactivé**
-- [ ]  la gestion des **JavaScript est activée**
-- [ ]  la **Toolbar est activée**
-- [ ]  les **formulaires non officiels sont autorisés**
-- [ ]  le **profil avancé est désactivé**
-- [ ]  la permission “Voir le profil” est accessible aux **Invités**
-- [ ]  le **HTML est activé**
-- [ ]  le HTML non protégé est **autorisé pour tous les membres**
+- [ ] la version du forum est **ModernBB**
+- [ ] le **CSS de base est désactivé**
+- [ ] la gestion des **JavaScript est activée**
+- [ ] la **Toolbar est activée**
+- [ ] les **formulaires non officiels sont autorisés**
+- [ ] le **profil avancé est désactivé**
+- [ ] la permission “Voir le profil” est accessible aux **Invités**
+- [ ] le **HTML est activé**
+- [ ] le HTML non protégé est **autorisé pour tous les membres**
 
 Si tous les éléments sont validés, vous pouvez passer à l’installation du thème.
 
@@ -26,99 +27,98 @@ Si tous les éléments sont validés, vous pouvez passer à l’installation du 
 
 ### Version du forum
 
-Le choix de version d’un forum se fait à sa création. Forumactif recommande la version ModernBB, plus adaptée aux nouveaux besoins du web et plus modulaires : c’est pourquoi le Blank se repose sur cette version. 
+Le choix de version d’un forum se fait à sa création. Forumactif recommande la version ModernBB, plus adaptée aux nouveaux besoins du web et plus modulaires : c’est pourquoi le Blank se repose sur cette version.
 
 Assurez-vous que votre forum utilise la bonne version ou modifiez-la si nécessaire :
 
 <AdminPanelHelper
-  icon="Palette"
-  breadcrumbs="Affichage, Thèmes, Choisir un thème, Version"
-  actions={
-    [["Changer de version", "Oui"]]
-  }
+    icon="Palette"
+    breadcrumbs="Affichage, Thèmes, Choisir un thème, Version"
+    actions={[["Changer de version", "Oui"]]}
 />
 
 <Callout type="warning" title="Changer de version">
-Il est possible de changer la version de son forum après sa création. Attention : ce changement opère une réinitialisation complète des templates et du CSS. Pensez à sauvegarder vos modifications avant toute manipulation.
+    Il est possible de changer la version de son forum après sa création.
+    Attention : ce changement opère une réinitialisation complète des templates
+    et du CSS. Pensez à sauvegarder vos modifications avant toute manipulation.
 </Callout>
 
-### **Réglages du CSS**
+### Réglages du CSS
 
 Désactivez le CSS de base afin de retirer le thème par défaut de Forumactif.
 
 <AdminPanelHelper
-  icon="Palette"
-  breadcrumbs="Affichage, Images et Couleurs, CSS principal, Options du CSS (en bas de page)"
-  actions={
-    [["Désactiver le CSS de base", "Oui"], ["Optimiser votre CSS", "Non"]]
-  }
+    icon="Palette"
+    breadcrumbs="Affichage, Images et Couleurs, CSS principal, Options du CSS (en bas de page)"
+    actions={[
+        ["Désactiver le CSS de base", "Oui"],
+        ["Optimiser votre CSS", "Non"],
+    ]}
 />
 
-### **Utilisation du javascript**
+### Utilisation du javascript
 
 Activez la gestion des codes JavaScript afin d’ajouter les fonctionnalités du Blank.
 
 <AdminPanelHelper
-  icon="Puzzle"
-  breadcrumbs="Modules, HTML & Javascript, Gestion des codes Javascript"
-  actions={
-    [["Activer la gestion des codes Javascript", "Oui"]]
-  }
+    icon="Puzzle"
+    breadcrumbs="Modules, HTML & Javascript, Gestion des codes Javascript"
+    actions={[["Activer la gestion des codes Javascript", "Oui"]]}
 />
 
-### **Affichage du forum**
+### Affichage du forum
 
 Paramétrez la structure et l’affichage des informations principales du forum.
 
 <AdminPanelHelper
-  icon="Palette"
-  breadcrumbs="Affichage, Page d'accueil, Généralités"
-  actions={
-    [["Afficher les membres connectés ces xx dernières heures", "Oui"]]
-  }
+    icon="Palette"
+    breadcrumbs="Affichage, Page d'accueil, Généralités"
+    actions={[
+        ["Afficher les membres connectés ces xx dernières heures", "Oui"],
+    ]}
 />
 
 <AdminPanelHelper
-  icon="Palette"
-  breadcrumbs="Affichage, Page d'accueil, Structure et hiérarchie"
-  actions={
-    [["Niveau de compression de l'index", "Séparer les catégories sur l'index : Moyen"], ["Afficher le titre du dernier message", "Oui"], ["Afficher les avatars du dernier message", "Oui"], ["Afficher les liens vers les sous-forums", "Oui"], ["Afficher les modérateurs d'un forum", "Non"]]
-  }
+    icon="Palette"
+    breadcrumbs="Affichage, Page d'accueil, Structure et hiérarchie"
+    actions={[
+        [
+            "Niveau de compression de l'index",
+            "Séparer les catégories sur l'index : Moyen",
+        ],
+        ["Afficher le titre du dernier message", "Oui"],
+        ["Afficher les avatars du dernier message", "Oui"],
+        ["Afficher les liens vers les sous-forums", "Oui"],
+        ["Afficher les modérateurs d'un forum", "Non"],
+    ]}
 />
 
 <AdminPanelHelper
-  icon="Settings"
-  breadcrumbs="Général, Messages et Emails, Configuration"
-  actions={
-    [["Afficher la description des sujets", "Oui"]]
-  }
+    icon="Settings"
+    breadcrumbs="Général, Messages et Emails, Configuration"
+    actions={[["Afficher la description des sujets", "Oui"]]}
 />
 
-### **Affichage des profils**
+### Affichage des profils
 
 Paramétrez la structure des profils et leurs permissions d’accès. Il existe deux structures de profils dans forum. Seule la version “profil simple” est personnalisée pour le Blank.
 
 <AdminPanelHelper
-  icon="User"
-  breadcrumbs="Utilisateurs & Groupes, Profils, Options générales"
-  actions={
-    [["Voir le profil avancé", "Non"]]
-  }
+    icon="User"
+    breadcrumbs="Utilisateurs & Groupes, Profils, Options générales"
+    actions={[["Voir le profil avancé", "Non"]]}
 />
 
 <AdminPanelHelper
-  icon="User"
-  breadcrumbs="Utilisateurs & Groupes, Permissions spéciales"
-  actions={
-    [["Voir le profil", "Invités"]]
-  }
+    icon="User"
+    breadcrumbs="Utilisateurs & Groupes, Permissions spéciales"
+    actions={[["Voir le profil", "Invités"]]}
 />
 
-<Callout type="info"> 
-Cette configuration est nécessaire pour assurer le bon fonctionnement :
-
-- de l’affichage des avatars dans le Hub (QEEL modernisé)
-- de la visionneuse de profil Wombat
+<Callout type="info">
+    Cette configuration est nécessaire pour assurer le bon fonctionnement : - de
+    l’affichage des avatars dans le Hub (QEEL modernisé) - de la visionneuse de
+    profil Wombat
 </Callout>
 
 ### Toolbar
@@ -126,11 +126,9 @@ Cette configuration est nécessaire pour assurer le bon fonctionnement :
 Activez la toolbar pour bénéficier du système de notifications. Elle sera ensuite masquée par le CSS. Le plugin Notiffi sert de remplacement.
 
 <AdminPanelHelper
-  icon="Puzzle"
-  breadcrumbs="Modules, Toolbar, Configuration"
-  actions={
-    [["Activer la toolbar", "Oui"]]
-  }
+    icon="Puzzle"
+    breadcrumbs="Modules, Toolbar, Configuration"
+    actions={[["Activer la toolbar", "Oui"]]}
 />
 
 ### Formulaires non-officiels
@@ -138,25 +136,25 @@ Activez la toolbar pour bénéficier du système de notifications. Elle sera ens
 Autorisez l’utilisation des formulaires non-officiels sur le forum. Cette option est essentielle pour le bon fonctionnement de certains plugins comme Switcheroo et Notiffi.
 
 <AdminPanelHelper
-  icon="Settings"
-  breadcrumbs="Général, Forum, Sécurité"
-  actions={
-    [["Interdire les formulaires non officiels...", "Non"]]
-  }
+    icon="Settings"
+    breadcrumbs="Général, Forum, Sécurité"
+    actions={[["Interdire les formulaires non officiels...", "Non"]]}
 />
 
-### **HTML**
+### HTML
 
 Activez le HTML dans les messages pour utiliser les mises en page personnalisées (annexes, fiches, …).
 
 <AdminPanelHelper
-  icon="Settings"
-  breadcrumbs="Général, Messages et Emails, Configuration"
-  actions={
-    [["Autoriser le HTML", "Oui"], ["Autoriser le HTML non protégé", "Tous les membres"]]
-  }
+    icon="Settings"
+    breadcrumbs="Général, Messages et Emails, Configuration"
+    actions={[
+        ["Autoriser le HTML", "Oui"],
+        ["Autoriser le HTML non protégé", "Tous les membres"],
+    ]}
 />
 
 <Callout type="warning">
-Les utilisateurs inscrits avant l’activation du HTML devront modifier manuellement ce paramètre dans leurs préférences de profil.
+    Les utilisateurs inscrits avant l’activation du HTML devront modifier
+    manuellement ce paramètre dans leurs préférences de profil.
 </Callout>

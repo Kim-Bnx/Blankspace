@@ -1,5 +1,4 @@
 import nextra from "nextra";
-import rehypeShiki from "@shikijs/rehype";
 
 // Set up Nextra with its configuration
 const withNextra = nextra({

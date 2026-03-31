@@ -82,7 +82,7 @@ export const TOC: FC<{ toc: Heading[] }> = ({ toc }) => {
     };
 
     return (
-        <div className="self-start sticky top-8 min-w-2xs shrink-0">
+        <div className="self-start sticky top-8 max-w-2xs w-full shrink-0">
             <h3 className="flex items-center gap-2 text-dark-100 font-semibold text-sm uppercase mb-3">
                 <TextQuote size={16} /> Sur cette page
             </h3>
@@ -127,7 +127,7 @@ export const TOC: FC<{ toc: Heading[] }> = ({ toc }) => {
                                             });
                                     }}
                                     className={[
-                                        "block py-1 px-3 text-sm transition-colors duration-150",
+                                        "block py-1 px-3 text-sm transition-colors duration-150 truncate",
                                         isActive
                                             ? "text-accent font-medium"
                                             : "text-white/50 hover:text-white/80",
