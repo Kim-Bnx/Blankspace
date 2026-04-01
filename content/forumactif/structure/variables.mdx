@@ -18,9 +18,7 @@ Elles sont propres à Forumactif.
 Une variable est un marqueur spécial entouré d’accolades :
 
 ```html
-{USERNAME}
-{FORUM_NAME}
-{POST_SUBJECT}
+{USERNAME} {FORUM_NAME} {POST_SUBJECT}
 ```
 
 Lors du chargement de la page, Forumactif remplace ces marqueurs par la valeur correspondante.
@@ -59,7 +57,7 @@ Elles peuvent être utilisées directement dans le HTML comme du contenu :
 Également comme code dynamique :
 
 ```html
-<<div class="topicslist_row {topics_list_box.row.TOPIC_READ_STATUS}"> ... </div>
+<div class="topicslist_row {topics_list_box.row.TOPIC_READ_STATUS}">...</div>
 ```
 
 Ici, la variable va générer une classe différente en fonction de si le sujet contient un nouveau message ou non.
@@ -72,7 +70,7 @@ Syntaxe générale :
 
 ```html
 <!-- BEGIN condition... -->
-  Contenu affiché si la condition est vraie
+Contenu affiché si la condition est vraie
 <!-- END doncition... -->
 ```
 
@@ -102,7 +100,7 @@ Syntaxe générale :
 
 ```html
 <!-- BEGIN nom_de_la_boucle -->
-  Contenu répété
+Contenu répété
 <!-- END nom_de_la_boucle -->
 ```
 
@@ -110,9 +108,7 @@ Exemple simplifié :
 
 ```html
 <!-- BEGIN topicrow -->
-<div class="topic">
-    {topicrow.TOPIC_TITLE}
-</div>
+<div class="topic">{topicrow.TOPIC_TITLE}</div>
 <!-- END topicrow -->
 ```
 
@@ -155,7 +151,7 @@ Ces variables peuvent être utilisées dans la majorité des templates.
 
 ```html
 <!-- BEGIN switch_user_logged_in -->
-  (contenu)
+(contenu)
 <!-- END switch_user_logged_in -->
 ```
 
@@ -163,7 +159,7 @@ Ces variables peuvent être utilisées dans la majorité des templates.
 
 ```html
 <!-- BEGIN switch_user_logged_out -->
-  (contenu)
+(contenu)
 <!-- END switch_user_logged_out -->
 ```
 
@@ -184,7 +180,7 @@ Exemple :
 Va générer sur la page :
 
 ```html
-<img src="..." alt="...">
+<img src="..." alt="..." />
 ```
 
 Il est donc impossible d’ajouter une classe personnaliser à cet élément. Pour manipuler l’image, il faut entourer la variable d’un nouvel élément HTML pour effectuer des modifications.
@@ -196,17 +192,26 @@ Autre exemple :
 {catrow.forumrow.USER_LAST_POST}
 ```
 
-Va générer sur la page : 
+Va générer sur la page :
 
 ```html
 <!-- Date et auteur -->
-Mar 24 Fév 2026 - 13:35<br>
+Mar 24 Fév 2026 - 13:35<br />
 <strong>
-	<a href="/u2" class="gensmall"><span class="group-4 color-groups" style="color:#EB8F5E"><strong>Kim</strong></span></a>
+    <a href="/u2" class="gensmall"
+        ><span class="group-4 color-groups" style="color:#EB8F5E"
+            ><strong>Kim</strong></span
+        ></a
+    >
 </strong>
 &nbsp;
 <a href="/t6p30-cey-note#92" class="last-post-icon">
-	<img src="https://2img.net/i/fa/modernbb/icon_topic_latest.png" alt="Voir le dernier message" title="Voir le dernier message" loading="lazy">
+    <img
+        src="https://2img.net/i/fa/modernbb/icon_topic_latest.png"
+        alt="Voir le dernier message"
+        title="Voir le dernier message"
+        loading="lazy"
+    />
 </a>
 ```
 

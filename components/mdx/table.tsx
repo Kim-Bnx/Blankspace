@@ -12,7 +12,7 @@ const Th: FC<HTMLAttributes<HTMLTableCellElement>> = (props) => {
         <th
             {...props}
             className={cn(
-                "m-0 border-b-2 whitespace-nowrap text-left py-1 px-2",
+                "m-0 border-b-2 font-sans [&_strong]:font-medium whitespace-nowrap text-left py-1 px-2 text-light-100",
                 props.className,
             )}
         />

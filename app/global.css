@@ -210,8 +210,7 @@ code.nextra-code {
     :not(pre) > &:not([class*="twoslash-"]) {
         @apply p-[.12em_.25em];
         @apply rounded-[.375em];
-        @apply border-black/[0.04] bg-black/[0.03] break-words border text-[.9em];
-        @apply dark:border-white/10 dark:bg-white/10;
+        @apply bg-[#292838]/50 text-[#C6C6F4] break-words text-[.9em] font-mono;
     }
 }
 

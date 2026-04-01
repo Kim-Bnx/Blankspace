@@ -13,14 +13,18 @@ export default function AdminPanelHelper({
     return (
         <div
             className={cn(
-                "flex border flex-col p-1 rounded-xl gap-1 p-2",
+                "flex border flex-col p-1 rounded-2xl gap-1 p-2",
                 className,
             )}
             {...props}
         >
             {breadcrumbs && breadcrumbs.split(",").length > 0 && (
                 <div className="p-1 flex items-center gap-1">
-                    {icon && <Icon name={icon} className="w-5 mr-1" />}
+                    {icon && (
+                        <span className="bg-[#2A282E]/50 p-1 rounded-md mr-1">
+                            <Icon name={icon} className="w-5" />
+                        </span>
+                    )}
                     {breadcrumbs.split(",").map((crumb, index, arr) => (
                         <span
                             key={index}
