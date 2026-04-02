@@ -39,10 +39,7 @@ export const Pre: FC<PreProps> = ({
     const extension = filename?.substring(lastDotIndex + 1);
 
     return (
-        <div
-            data-pagefind-ignore={pagefindIgnore}
-            className="relative not-first:mt-[1.25em]"
-        >
+        <div data-pagefind-ignore={pagefindIgnore} className="relative">
             {filename && (
                 <div
                     className={cn(
