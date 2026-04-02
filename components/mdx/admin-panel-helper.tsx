@@ -50,7 +50,7 @@ export default function AdminPanelHelper({
                         <div
                             key={index}
                             className={cn(
-                                "col-span-2 grid grid-cols-subgrid py-2 gap-4 rounded-md bg-[#2A282E]/50 pl-8",
+                                "col-span-2 grid grid-cols-subgrid py-2 gap-4 rounded-md bg-[#2A282E]/50 pl-10 pr-4",
                             )}
                         >
                             <span className="text-primary-foreground font-semibold">
