@@ -84,10 +84,10 @@ export function DocumentationCards({ cards }) {
             {cards.map(({ title, description, icon, href }) => (
                 <div
                     key={title}
-                    className="p-8 flex-1 relative z-10"
+                    className="p-8 flex-1 relative z-10 group"
                     onMouseEnter={(e) => slideToCard(e.currentTarget)}
                 >
-                    <a href={href} className="flex flex-col gap-2 group h-full">
+                    <a href={href} className="flex flex-col gap-2  h-full">
                         {icon}
                         <h3 className="font-medium text-lg">{title}</h3>
                         <p className="text-sm leading-relaxed mb-20">

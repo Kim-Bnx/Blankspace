@@ -4,14 +4,32 @@ description: Comprendre comment une page de forum est construite pour mieux pers
 ---
 
 <Callout type="info">
-  Pour accéder à l’ensemble des outils de personnalisation, il est nécessaire d’activer le mode avancé du panneau d’administration :
+    Pour accéder à l’ensemble des outils de personnalisation, il est nécessaire
+    d’activer le mode avancé du panneau d’administration :
 </Callout>
 
 ## Les briques d’une page Forumactif
 
 Sur Forumactif, chaque page repose sur 3 éléments complémentaires :
 
-(COMPONENTS DE RENVOIS)
+<Columns cols={2}>
+    <LinkCard
+        href="/docs/forumactif/structure/html"
+        title="HTML"
+        className="col-span-2"
+        description="Le HTML est le nom du language qui permet de créer la structure et le contenu de la page. C’est les balises visibles dans les templates et parfois dans les sujets."
+    />
+    <LinkCard
+        href="/docs/forumactif/structure/templates"
+        title="Templates"
+        description="Les templates sont les fichiers modèles qui vont composer une page. Chaque template représente une page ou une section de page prédéfinie."
+    />
+    <LinkCard
+        href="/docs/forumactif/structure/variables"
+        title="Variable de template"
+        description="Les variables affichent les données dynamique du forum : utilisateurs, catégories, statistiques, etc. Elles sont insérées dans les templates et leur contenu s’adapte en fonction du contexte. "
+    />
+</Columns>
 
 ## Comment une page web est construite
 
@@ -22,34 +40,34 @@ Une page web suit toujours la même organisation de base :
 ```html
 <!DOCTYPE html>
 <html>
-	<!-- Informations invisibles -->
-  <head>
-	  <!-- Titre de la page -->
-	  <!-- Meta-donnée -->
-	  
-	  <!-- Importation du CSS -->
-	  <!-- Importation du script avant le chargement de la page -->
-  </head>
-  
-  <!-- Contenu visible -->
-  <body>
-	  <!-- Header -->
-	  <!-- Navigation -->
-	  
-	  <!-- Template de catégorie : 
+    <!-- Informations invisibles -->
+    <head>
+        <!-- Titre de la page -->
+        <!-- Meta-donnée -->
+
+        <!-- Importation du CSS -->
+        <!-- Importation du script avant le chargement de la page -->
+    </head>
+
+    <!-- Contenu visible -->
+    <body>
+        <!-- Header -->
+        <!-- Navigation -->
+
+        <!-- Template de catégorie : 
 				  - titre catégorie
 				  - forum
 				  - liens
 		-->
-		
-		<!-- Template du QEEL :
+
+        <!-- Template du QEEL :
 					-- nouvel inscrit
 					-- membre connectés
 					-- stastiques
 		-->
-		
-		<!-- Importation du script après le chargement de la page -->
-  </body>
+
+        <!-- Importation du script après le chargement de la page -->
+    </body>
 </html>
 ```
 
@@ -79,4 +97,7 @@ C’est dans cette partie que la majorité des templates viennent s’insérer. 
 
 Forumactif donne la possibilité de créer des nouvelles pages vierges attachés à son forum. Elles peuvent servir à créer du contenu supplémentaires : annexes, règlement, outils, …
 
-(COMPONENTS RENVOI VERS PAGE HTML)
+<LinkCard
+    href="/docs/forumactif/structure/page-html"
+    title="Pages HTML personnalisées"
+/>

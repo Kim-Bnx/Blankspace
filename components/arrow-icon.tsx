@@ -1,4 +1,4 @@
-export default function ArrowIcon({ className }) {
+export default function ArrowIcon({ className }: { className?: string }) {
     return (
         <svg
             aria-hidden="true"

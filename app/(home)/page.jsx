@@ -14,6 +14,8 @@ import { NavbarBlob } from "../../components/navbar-blob";
 import { DocumentationCards } from "@/components/home/documentation-cards";
 import { ShowcaseGrid } from "@/components/home/showcase-grid";
 import { EmojiCarousel } from "@/components/home/emoji-carousel";
+import { PageSlider } from "@/components/home/page-slider";
+
 import LogoText from "@/app/logo-text";
 import GithubIcon from "../../components/github-icon";
 import TumblrIcon from "../../components/tumblr-icon";
@@ -133,37 +135,6 @@ function CommunityCard({
 }
 
 // ---------------------------------------------------------------------------
-// HomePageSlider
-// ---------------------------------------------------------------------------
-function HomePageSlider() {
-    const items = [
-        {
-            title: "Des codes simplifiés, commentés et plus facile à comprendre",
-        },
-        { title: "Un design minimaliste comme point de départ à vos idées" },
-        { title: "Des fonctionnalités pratiques pour améliorer l'expérience" },
-    ];
-
-    return (
-        <div className="grid grid-cols-2">
-            <aside className="border-r">
-                <ul>
-                    {items.map((item, i) => (
-                        <SliderItem
-                            key={i}
-                            index={i + 1}
-                            title={item.title}
-                            isLast={i === items.length - 1}
-                        />
-                    ))}
-                </ul>
-            </aside>
-            <section>test</section>
-        </div>
-    );
-}
-
-// ---------------------------------------------------------------------------
 // Page
 // ---------------------------------------------------------------------------
 export default async function Home() {
@@ -227,7 +198,7 @@ export default async function Home() {
                         </div>
                     </div>
                     <div className="col-span-4 grid-cols-2 border-t">
-                        <HomePageSlider />
+                        <PageSlider />
                     </div>
                 </div>
             </section>

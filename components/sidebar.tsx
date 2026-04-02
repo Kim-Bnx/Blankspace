@@ -17,9 +17,11 @@ const FolderItem: FC<{
     pathname: string;
     renderItem: (item: DirectoryItem) => React.ReactNode;
 }> = ({ item, pathname, renderItem }) => {
-    const [open, setOpen] = useState(true);
     const route = item.route || ("href" in item ? (item.href as string) : "");
     const isActive = pathname === route;
+    const [open, setOpen] = useState(
+        () => pathname.startsWith(route + "/") || isActive,
+    );
 
     return (
         <li>

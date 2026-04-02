@@ -88,6 +88,67 @@ svg[height="0"][aria-hidden="true"] {
     font-size: 1.125rem;
     line-height: 1.5rem;
 
+    :where(ol):not(:where([class~="not-copy"], [class~="not-copy"] *)) {
+        li {
+            counter-increment: BodyListCounter;
+            position: relative;
+            margin: 0 2.5rem;
+            &:not(:first-child) {
+                margin-top: 0.5rem;
+            }
+            &::before {
+                @apply border;
+                position: absolute;
+                top: 0;
+                left: -36px;
+                width: 24px;
+                height: 24px;
+                border-radius: 50%;
+                content: "";
+            }
+            &::after {
+                position: absolute;
+                top: 0;
+                left: -36px;
+                width: 24px;
+                line-height: 24px;
+                font-weight: 600;
+                @apply text-accent-alt;
+                text-align: center;
+                content: counter(BodyListCounter);
+                font-size: 0.725rem;
+            }
+        }
+    }
+    :where(ul):not(:where([class~="not-copy"], [class~="not-copy"] *)) {
+        li {
+            position: relative;
+            margin: 0 2.5rem;
+            &:not(:first-child) {
+                margin-top: 0.5rem;
+            }
+            &::before {
+                position: absolute;
+                top: 9px;
+                left: -28px;
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                @apply bg-dark-100;
+                content: "";
+            }
+        }
+    }
+}
+/* .copy {
+    @apply text-light-300;
+    display: grid;
+    align-content: start;
+    gap: 1rem;
+
+    font-size: 1.125rem;
+    line-height: 1.5rem;
+
     :where(h1):not(:where([class~="not-copy"], [class~="not-copy"] *)) {
         font-weight: 500;
         font-size: 2.25rem;
@@ -163,7 +224,7 @@ svg[height="0"][aria-hidden="true"] {
             }
         }
     }
-}
+} */
 
 .hoverArrow {
     --arrowSpacing: 5px;
@@ -210,7 +271,7 @@ code.nextra-code {
     :not(pre) > &:not([class*="twoslash-"]) {
         @apply p-[.12em_.25em];
         @apply rounded-[.375em];
-        @apply bg-[#292838]/50 text-[#C6C6F4] break-words text-[.9em] font-mono;
+        @apply bg-[#222827]/50 text-accent-alt break-words text-[.9em] font-mono;
     }
 }
 
