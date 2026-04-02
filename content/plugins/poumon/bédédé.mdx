@@ -1,0 +1,95 @@
+---
+title: Bédédé
+auhtor: Poumon
+---
+
+<Callout type="warning" title="Bédédé">
+    Prenez note que ce plugin est en alpha pré-release. Le lien partagé pour
+    l'installation, directement depuis mon dropbox personnel, sera supprimé lors
+    de sa sortie officielle. N'UTILISEZ PAS cette version sur vos forums
+    officiels ! Vous pouvez quand même l'essayer et bidouiller sur un forum test
+    en attendant, et bien sûr me partager vos retours.
+</Callout>
+
+Ce plugin est un script pour ForumActif permettant de créer des bases de données grâce aux pages HTML du panneau d'administration. Ces bases de données pourront ensuite être exploitées en JavaScript et être utilisées n'importe où sur le reste de votre forum.
+
+- Ce plugin est un outil. Il n'est pas vraiment exploitable en l'état et demande de bonnes notions en JavaScript pour être utilisé à son plein potentiel.
+
+## Avant l'installation
+
+### Comprendre les limites
+
+1. Les base de données sont construites dans les pages HTML du panneau d'administration et celles-ci sont malheureusement limitées à `127999 caractères maximum`.
+1. Les pages HTML ne peuvent être modifiées que par un administrateur y ayant accès.
+1. Comme vous le savez sans doute, ForumActif n'est jamais totalement fiable, et cette devise vaut aussi pour les manipulations du panneau d'administration. Pensez à sauvegarder une copie de vos bases de données de temps à autres dans un bloc note – on ne sait jamais. Si vous avez déjà perdu des templates pour aucune raison apparente, vous savez de quoi je parle.
+
+### Autoriser les formulaires personnalisés
+
+Il faut autoriser les formulaires non-officiels à poster sur votre forum. Pour ce faire, rien de compliqué :
+
+<AdminPanelHelper
+    icon="Settings"
+    breadcrumbs="Général, Forum, Sécurité"
+    actions={[["Interdire les formulaires non officiels...", "Non"]]}
+/>
+
+### Conserver le lien du panneau d'administration
+
+1. Le lien du panneau d'administration en bas de page est nécessaire pour récupérer le temporary id de l'administrateur actuellement connecté. C'est grâce à celui-ci que Bédédé peut naviguer jusqu'à la page HTML et modifier une base de données.
+1. Bien entendu, comme ce lien n'apparaît qu'aux administrateurs connectés et que les requêtes sont envoyées depuis leur compte, l'utiliser est tout à fait sécuritaire.
+
+## Installer le plugin
+
+Le plugin est compilé en un seul fichier et doit être installé en script externe. Ouvrez votre template `overall_footer_end` (fin du bas de page) et juste avant la fermeture de la balise `</body>{:html}`, insérez le code suivant :
+
+```html
+<!-- Importation de Bédédé.js / lien temporaire -->
+<script src="https://dl.dropboxusercontent.com/scl/fi/sh2l7637uaznajpthysg0/bedede.js?rlkey=mlj9hvowz1csx1gqrrdeaxhj1&dl=0"></script>
+
+<!-- Initialisation de Bédédé -->
+<script>
+    const BDD = new Bédédé();
+</script>
+```
+
+Bédédé est maintenant installé, mais n'est pas tout à fait fonctionnel encore. Il faut maintenant le configurer.
+
+### Créer une base de données
+
+1. Pour se faire, il faut d'abord créer une nouvelle page HTML. Son titre n'a pas d'importance. Assurez-vous que l'option "Voulez-vous utiliser le haut et le bas de page de votre forum ?" est bien réglée sur "Oui".
+1. Il faut ensuite coller le tableau ci-dessous dans la page HTML.
+
+```html
+<table id="bdd">
+    <thead>
+        <tr>
+            <!-- les propriétés sont à ajouter ici -->
+        </tr>
+    </thead>
+    <tbody>
+        <!-- les données seront ajoutées ici -->
+    </tbody>
+</table>
+```
+
+### Configurer une base de données
+
+Une base de données sera générée grâce à ce tableau séparé en deux parties. Pour définir les propriétés de votre base de données, il suffit d'y ajouter des `<th>{:html}`. Pour l'instant, il en existe trois type :
+
+- `<th>nom_propriété</th>{:html}` : Le champ du formulaire sera un input de type "text".
+- `<th type="text">nom_propriété</th>{:html}` : Le champ du formulaire sera un "textarea" et permettra d'écrire sur plusieurs lignes.
+- `<th type="select" options="">nom_propriété</th>{:html}` : Le champ du formulaire sera un menu déroulant. Les options sont à ajouter dans l'attribut "options" séparées par des virgules.
+
+Voici un exemple de propriétés pour une base de données de compétences (ou de sorts) :
+
+```html
+<thead>
+    <tr>
+        <th>nom</th>
+        <th type="text">description</th>
+        <th type="select" options="feu,eau,air,terre">élément</th>
+    </tr>
+</thead>
+```
+
+Avant de sauvegarder votre page, vous pouvez retirez les commentaires pour sauver quelques précieux caractères.
