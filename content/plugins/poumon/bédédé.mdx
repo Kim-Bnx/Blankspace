@@ -93,3 +93,70 @@ Voici un exemple de propriétés pour une base de données de compétences (ou d
 ```
 
 Avant de sauvegarder votre page, vous pouvez retirez les commentaires pour sauver quelques précieux caractères.
+
+### Configuration du plugin
+
+Maintenant que la BDD et que le tableau sont créés, il est faut maintenant connecter le client correctement. <u>Ceci permettra également de rendre visible le formulaire qui permet d'ajouter des données depuis votre page HTML.</u>
+
+Avant toute chose, le tout premier bout de script installé dans votre template permettait d'initialiser Bédédé sur votre forum – mais pas seulement. L'instance de la fonction `new Bédédé(){:js}` est également le client qui permet de se connecter à une base de données.
+
+La fonction accepte un seul argument :
+
+1. `number` Permet de déclarer à quelle page HTML vous souhaitez vous connecter. Le titre de la page n'importe peu : c'est l'ID qu'il faut retenir et remplacer selon la page à laquelle nous souhaitons nous connecter. Dans l'exemple ci-dessous, notre base de données se trouve à la page HTML "/h1-tralala".
+
+```js
+const SkillsClient = new Bédédé(1); /* ID de la page HTML */
+```
+
+Je vous conseille fortement de renommer la variable du client selon ce que contient la base de données. C'est elle que nous utiliserons pour récupérer nos données, alors mieux vaut qu'elle soit explicite.
+
+## Écrire des données
+
+Vous pouvez désormais accéder à votre page HTML en tant qu'administrateur et commencer à y écrire vos données. **Tous les champs du formulaire sont obligatoires.** Une fois ceux-ci remplis, vous n'avez qu'à poster pour voir la page se rafraichir et vos données apparaître dans le tableau comme par magie !
+
+## Lire la base de données
+
+Maintenant que tout est place et que le client (la fonction `new Bédédé(){:js}`) est bien connectée à la page HTML, il est possible de passer des requêtes et de récupérer des données.
+
+### Méthodes
+
+<Callout>
+    Toutes les requêtes retournent une `Promise`, il est donc très important de
+    les utiliser dans une fonction asynchrone en complément avec l'opérateur
+    `await`.
+</Callout>
+
+Vous pouvez commencer à utiliser ces différentes méthodes pour lire les données. Les fonctions disponibles sont les suivantes :
+
+```js
+(async function () {
+    /* getAll() permet de récupérer toutes les lignes de 
+       la base de données et retourne un array d'objets
+       de toutes les valeurs présentes.
+    */
+    const all = await SkillsClient.getAll();
+
+    /* getSingle() permet de récupérer la première ligne
+       correspondant à la combinaison de clef et de valeur
+       et retourne un objet de toutes les valeurs présentes.
+    */
+    const single = await SkillsClient.getSingle("key", "comp", "value");
+    const { property1, property2 } = await SkillsClient.getSingle(
+        "key",
+        "comp",
+        "value",
+    );
+
+    /* getCollection() permet de récupérer toutes les lignes
+       correspondant à la combinaison de clef et de valeur
+       et retourne un array d'objets de toutes les valeurs présentes.
+    */
+    const collection = await SkillsClient.getCollection("key", "comp", "value");
+})();
+```
+
+Tous les arguments des fonctions sont obligatoires et permettent de sélectionner les données :
+
+- `key` : Le nom d'une des propriétés que vous avez défini dans les `<th>{:html}` de notre page HTML.
+- `comp` : N'importe quel opérateur JavaScript `<, <=, >, >=, ==, !=`, pour les propriétés pouvant être transformée avec `Number()`. L'opérateur `contains` ne s'applique que pour les propriétés de type `string` et permet de trouver une ligne dont la _key_ contient la _value_.
+- `value` : La valeur que nous souhaitons comparer.
