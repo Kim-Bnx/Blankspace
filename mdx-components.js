@@ -10,6 +10,7 @@ import { Table } from "@/components/mdx/table";
 import { Columns } from "@/components/mdx/columns";
 import { Card } from "@/components/mdx/card";
 import { LinkCard } from "@/components/mdx/link-card";
+import { TypeTable } from "@/components/mdx/type-table";
 
 import { H1, H2, H3, H4, H5, H6 } from "@/components/mdx/heading";
 
@@ -27,10 +28,10 @@ const CALLOUT_TYPE = Object.freeze({
 });
 
 const defaultComponents = getNextraComponents({
-    wrapper({ children, toc }) {
+    wrapper({ toc, children, metadata, bottomContent, sourceCode, ...props }) {
         return (
             <div className="wrapper flex max-w-7xl w-full mx-auto gap-10">
-                <div className="flex-1 copy">{children}</div>
+                <div className="flex-1 px-10 ">{children}</div>
                 <TOC toc={toc} />
             </div>
         );
@@ -67,6 +68,7 @@ const defaultComponents = getNextraComponents({
     LinkCard,
     GithubCodeBlock,
     Callout,
+    TypeTable,
     AdminPanelHelper,
 });
 

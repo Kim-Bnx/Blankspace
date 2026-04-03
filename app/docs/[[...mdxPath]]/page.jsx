@@ -1,6 +1,7 @@
 import { generateStaticParamsFor, importPage } from "nextra/pages";
 import { useMDXComponents as getMDXComponents } from "@/mdx-components";
-import { PageHeader } from "@/components/page-header";
+import { DocsHeader } from "@/components/docs-header";
+import { DocsFooter } from "@/components/docs-footer";
 
 export const generateStaticParams = generateStaticParamsFor("mdxPath");
 
@@ -20,17 +21,13 @@ export default async function Page(props) {
         metadata,
         sourceCode,
     } = await importPage(params.mdxPath);
-
-    console.log(metadata);
     return (
         <Wrapper toc={toc} metadata={metadata} sourceCode={sourceCode}>
-            <PageHeader
-                title={metadata.title}
-                description={metadata.description}
-            />
+            <DocsHeader metadata={metadata} />
             <div className="py-8 copy">
                 <MDXContent {...props} params={params} />
             </div>
+            <DocsFooter metadata={metadata} />
         </Wrapper>
     );
 }

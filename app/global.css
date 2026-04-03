@@ -139,6 +139,9 @@ svg[height="0"][aria-hidden="true"] {
             }
         }
     }
+    :where(em) {
+        font-family: Georgia, "Times New Roman", Times, serif;
+    }
 }
 /* .copy {
     @apply text-light-300;

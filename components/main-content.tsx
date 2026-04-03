@@ -3,8 +3,15 @@
 import { type ReactNode } from "react";
 import { useScrollContainer } from "@/lib/scroll-context";
 import { NavbarBlob } from "./navbar-blob";
+import { PageMapItem } from "nextra";
 
-export function MainContent({ children }: { children: ReactNode }) {
+export function MainContent({
+    children,
+    pageMap,
+}: {
+    children: ReactNode;
+    pageMap: PageMapItem[];
+}) {
     // On enregistre ce nœud comme conteneur de scroll dans le contexte
     const scrollRef = useScrollContainer();
 

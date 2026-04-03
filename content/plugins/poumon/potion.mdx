@@ -1,0 +1,340 @@
+---
+title: Potion
+icon: potion
+description: Potion est un moteur de templates (template engine) implémenté en JavaScript pour ForumActif ou tout autre projet. Il permet aussi bien de manipuler de petites chaînes de caractères que des templates complets.
+author: Poumon
+---
+
+- Ce plugin est un outil. Il n'est pas vraiment exploitable en l'état et demande de bonnes notions en JavaScript pour être utilisé à son plein potentiel.
+
+## Installer le script
+
+### Sur forum
+
+Le plugin est compilé en un seul fichier et doit être installé en script externe. Ouvrez votre template `overall_footer_end` (fin du bas de page) et juste avant la fermeture de la balise `</body>{:html}`, insérez le code suivant :
+
+```html
+<!-- Importation de Potion.js -->
+<script src="https://cdn.jsdelivr.net/npm/@poumon/potion@latest/potion.min.js"></script>
+
+<!-- Importation de Potion.js Diète -->
+<script src="https://cdn.jsdelivr.net/npm/@poumon/potion-diet@latest/potion.min.js"></script>
+```
+
+### Via npm
+
+Pour la toute première fois 🥳 un de mes plugins peut être utilisé tel quel dans n'importe quel projet et n'est pas dépendant de l'environnement ForumActif pour fonctionner.
+
+Pour utiliser Potion dans vos projets, vous pouvez utiliser la commande `npm install @poumon/potion` ou `npm install @poumon/potion-diet` et l'importer comme module :
+
+```js
+import potion from "@poumon/potion";
+// OU
+import potion from "@poumon/potion-diet";
+```
+
+## Utilisation du plugin
+
+### Potion et Potion Diet
+
+Il existe deux versions de Potion : la principale et la plus puissante (tout inclus) et "Diète", une version simplifiée et plus compacte. La fonction principale des deux versions est identique et permet d'imiter un moteur de template en JavaScript :
+
+```js
+const template =
+    "Bonjour, je m'appelle [user.name] et j'ai [user.cats.length] chats.";
+const data = {
+    user: {
+        name: "Poumon",
+        cats: ["Boudin", "Babushka"],
+    },
+};
+
+const output = potion(template, data);
+// "Bonjour, je m'appelle Poumon et j'ai 2 chats."
+```
+
+En soi, Potion permet de remplacer ce qu'on appelle des "jetons" (tokens) dans une chaîne de texte par des données. L'appel de la fonction `potion(template, data){:js}` retourne la valeur du template une chaîne de charactères une fois les jetons remplacés.
+
+## Fonctionnalités avancées
+
+<Callout type="warning">
+    Prenez note que la suite des fonctionnalités ne concernent pas Potion Diète.
+</Callout>
+
+### Options
+
+Potion est pensé en prenant en compte les restrictions d'écriture rencontrées dans les templates de ForumActif. Il est toutefois possible de changer les délimiteurs en accolades { } au besoin.
+
+```js
+// potion(template, data, options)
+
+const template = potion(template, data, {
+    start: "{",
+    end: "}",
+});
+```
+
+Si vous décidez de modifier ces délimiteurs, assurez-vous de ne pas utiliser d'accolades dans un script à l'intérieur d'un template. ForumActif n'aime pas qu'on touche à ses accolades et risquerait de les interpréter comme les siennes.
+
+### Micro-template dans le DOM
+
+L'élément HTML `<template>{:html}` permet de stocker du HTML qui ne sera pas affiché lors du chargement initial de la page, mais qui peut être instancié et affiché par la suite grâce au JavaScript.
+
+Potion est capable de récupérer ces éléments `<template>{:html}`, à condition qu'ils soient identifiés pour lui. Il existe deux façons de faire :
+
+1. En créant un `<template type="template/potion">{:html}` anonyme.
+1. En créant un `<template type="template/potion" data-name="babushka">{:html}` nommé, grâce à l'attribut `data-name`.
+
+Un avantage non négligeable d'utiliser `<template>{:html}` est de conserver le HTML dans un fichier HTML et la logique des données dans un fichier JavaScript à part, ce qui permet de ne pas travailler le HTML en chaîne de caractères (sans tabulation, sans structure, sans beauté) dans une variable JavaScript.
+
+De plus, au chargement du Document, Potion place immédiatement tous les `<template>{:html}` qu'il reconnaît dans son cache.
+
+```html
+<!-- Le plus collant, Boudin -->
+<template type="template/potion">
+    <div class="[cat.boudin.bgcolor]">
+        <img src="[cat.boudin.img]" alt="" />
+    </div>
+</template>
+
+<!-- La plus patate, Babushka -->
+<template type="template/potion" data-name="babushka">
+    <div class="[cat.babushka.bgcolor]">
+        <img src="[cat.babushka.img]" alt="" />
+    </div>
+</template>
+```
+
+La seule différence entre un `<template>{:html}` anonyme et un nommé, c'est la façon de l'appeler.
+
+Les templates anonymes sont enregistrés selon l'ordre dans lequel ils sont rencontrés dans le DOM, en prenant en compte tous les `<template type="template/potion">{:html}` selon la convention suivante `[data-name]` ou `potion-${i}` :
+
+```js
+const data = {
+    cat: {
+        boudin: {
+            /* ... */
+        },
+        babushka: {
+            /* ... */
+        },
+    },
+};
+
+// Le plus collant, Boudin
+const boudin = potion("potion-0", data);
+
+// La plus patate, Babushka
+const babushka = potion("babushka", data);
+```
+
+Puisque Potion met en cache le contenu des balises `<template>{:html}` qu'il reconnaît, vous pouvez les récupérer en indiquant leur nom comme premier argument de la fonction `potion(template, data){:js}`.
+
+## Syntaxe
+
+### Utiliser des conditions de rendu
+
+Potion supporte l'utilisation de conditions booléennes permettant l'affichage d'un rendu en fonction d'une valeur `true` ou `false` dans les données.
+
+```js
+const template = "[isLoggedIn][secret][/isLoggedIn]";
+const data = {
+    isLoggedIn: user.loggedIn(),
+    secret: "Poumon aime beaucoup ses chats.",
+};
+
+potion(template, data);
+```
+
+D'après l'exemple ci-dessus, la valeur de `secret` ne sera révélée que si l'utilisateur est connecté.
+
+### Parcourir des tableaux
+
+Comme précédemment présenté, Potion peut traitées des données en tableaux.
+
+```html
+<template type="template/potion" data-name="cats">
+    Les plus beaux chats du monde : [cats] [name] est [color]. [/cats]
+</template>
+```
+
+```js
+potion("cats", {
+    cats: [
+        { name: "Boudin", color: "noir" },
+        { name: "Babushka", color: "écaille de tortue" },
+    ],
+});
+```
+
+### Utiliser des fonctions
+
+Potion est capable de détecter une fonction et de l'exécuter. À l'intérieur de celle-ci, le mot-clef this fait référence à l'objet `data` passé en données.
+
+```js
+potion("boudin", {
+    name: "Boudin",
+    famousQuote: function () {
+        return `REGARDE-MOOOEEEEEW —${this.name}`;
+    },
+});
+```
+
+Pour des raisons de sécurité, les fonctions ne sont malheureusement pas autorisées à l'intérieur d'un `<template>{:html}`. Par exemple `[name.toUpperCase()]{:js}` ne sera pas exécuté. Il est préférable de transformer vos données directement depuis l'objet `data`.
+
+### Parcourir des objets
+
+Il est possible de traverser des objets. Lorsque potion détecte un objet, il mettra à disposition deux nouveaux "jetons" pour accéder aux propriétés de l'objet.
+
+```html
+<template type="template/potion" data-name="cats">
+    Les plus beaux chats du monde : [cats] [_key] est [_value]. [/cats]
+</template>
+```
+
+```js
+potion("cats", {
+    cats: {
+        boudin: "noir",
+        babushka: "écaille de tortue",
+    },
+});
+```
+
+## Interprétation d'un template
+
+Il est également possible de placer un `<template>{:html}` quelque part dans le DOM et de le transformer en véritable HTML une fois les données reçues. **Tous les `<template>{:html}` doivent être placés avant l'import du script.**
+
+### Rendering
+
+La fonction `potion.render(template, data, options){:js}` transformera la balise `<template>{:html}` en une `<div>{:html}` (ou tout autre balise spécifiée dans les options durant l'appel).
+
+<Callout type="warning">
+    Contrairement à `potion(){:js}`, la méthode `potion.render(){:js}` ne fonctionne qu'en ciblant un template par son nom, puisque celui-ci sera remplacé dynamiquement dans le DOM.
+</Callout>
+
+```js
+const data = {
+    cats: [
+        { name: "Boudin", color: "noir" },
+        { name: "Babushka", color: "écaille de tortue" },
+    ],
+};
+
+const div = potion.render("cats", data, {
+    tag: "section",
+    class: "visible",
+});
+```
+
+<TypeTable
+    id="render-props"
+    type={{
+        tag: {
+            type: "string",
+            required: false,
+            default: "div",
+            description:
+                "Il est possible de le transformer le template initial en spécifiant la balise d'un élément HTML valide.",
+        },
+        class: {
+            type: "string",
+            description:
+                "Comme tous les attributs sont transférés à l'élément transformé, cette option permet d'ajouter des classes supplémentaires une fois le <template> transformé.",
+        },
+    }}
+/>
+
+### Syncing
+
+La fonction `potion.sync(template, data, options){:js}` transformera la balise `<template>{:html}` en une `<div>{:html}` (ou tout autre balise spécifiée dans les options durant l'appel).
+
+<Callout type="warning">
+    Contrairement à `potion(){:js}`, la méthode `potion.sync(){:js}` ne fonctionne qu'en ciblant un template par son nom, puisque celui-ci sera remplacé dynamiquement dans le DOM.
+</Callout>
+
+```js
+const data = {
+    cats: [{ name: "Boudin", color: "noir" }],
+};
+
+const syncedData = potion.sync("colors", data, {
+    tag: "section",
+    class: "visible",
+});
+```
+
+<TypeTable
+    id="sync-props"
+    type={{
+        tag: {
+            type: "string",
+            required: false,
+            default: "div",
+            description:
+                "Il est possible de le transformer le template initial en spécifiant la balise d'un élément HTML valide.",
+        },
+        class: {
+            type: "string",
+            description:
+                "Comme tous les attributs sont transférés à l'élément transformé, cette option permet d'ajouter des classes supplémentaires une fois le <template> transformé.",
+        },
+    }}
+/>
+
+En revanche, `potion.sync(){:js}` retourne directement le clone de l'objet passé en data, sous la forme d'un [Proxy](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Proxy). Dans l'exemple ci-dessus, toutes les modifications effectuées aux valeurs de `syncedData` seront reflétées directement dans le DOM.
+
+- Une fois déclaré, utiliser `syncedData.cats.push({ name: "Babushka", color: "écaille de tortue" }){:js}` fonctionne de la même façon que si vous étiez allé créer une nouvelle itération de tableau.
+
+## Gestion des événements
+
+En plus des jetons, il est maintenant possible d'ajouter des événements directement dans les `<template>{:html}`.
+
+Les événements sont ajoutés comme attribut d'un élément et sont précédés d'un @ comme dans `<div @click="">{:html}`. Vous trouverez une liste complète des événements du DOM en suivant [ce lien](https://www.w3schools.com/jsref/dom_obj_event.asp).
+
+Il existe deux façons d'utiliser les événements dans un `<template>{:html}`.
+
+### Événements déclarés
+
+Les événements déclarés permettent d'appeler une fonction présente dans l'objet `data`. Tous les arguments de type "variable" doivent aussi existés dans l'objet `data`.
+
+- `@click="petCat(name){:html}` ou `@click="feedCat"{:html}`
+
+<Callout>
+    Tous les événements reçoivent `event` comme premier argument. La déclaration de la fonction `petCat` dans le data serait donc `petCat: (event, name) => {}{:js}`.
+</Callout>
+
+```html
+<template type="template/potion" data-name="cats">
+    [cats]
+    <button @click="petCat(name)">Patpat [name]</button>
+    [/cats]
+</template>
+
+<script>
+    const data = {
+        cats: [
+            { name: "Boudin", color: "noir" },
+            { name: "Babushka", color: "écaille de tortue" }
+        ],
+        feedCat() {
+            alert('Oh non, il n'y a plus de croquettes !');
+        },
+        petCat(e, name) {
+            alert(name + " ronronne de bonheur !");
+        }
+    };
+
+    const syncedData = potion.sync('cats', data);
+</script>
+```
+
+## Modificateurs
+
+Les modificateurs sont des suffixes appliqués aux directives d'un événement qui permettent de **changer le comportement** d’un événement sans devoir écrire de code supplémentaire.
+
+Exemples concrets :
+
+- `@click.stop{:html}` → Empêche la propagation de l’événement comme `event.stopPropagation(){:js}`.
+- `@submit.prevent{:html}` → Empêche le rechargement de la page lors de l’envoi d’un formulaire comme `event.preventDefault(){:js}`.
+- `@keyup.enter{:html}` → Déclenche l’action uniquement quand on appuie sur "Entrée".

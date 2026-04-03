@@ -1,6 +1,8 @@
 ---
 title: Bédédé
-auhtor: Poumon
+icon: bedede
+description: Bédédé est un plugin permettant de transformer des pages HTML de Forumactif en quasi authentiques base de données. La mise en place est plutôt simple, mais la véritable puissance se révèle à ceux suffisamment téméraire pour en exploiter le plein potentiel.
+author: Poumon
 ---
 
 <Callout type="warning" title="Bédédé">
@@ -160,3 +162,13 @@ Tous les arguments des fonctions sont obligatoires et permettent de sélectionne
 - `key` : Le nom d'une des propriétés que vous avez défini dans les `<th>{:html}` de notre page HTML.
 - `comp` : N'importe quel opérateur JavaScript `<, <=, >, >=, ==, !=`, pour les propriétés pouvant être transformée avec `Number()`. L'opérateur `contains` ne s'applique que pour les propriétés de type `string` et permet de trouver une ligne dont la _key_ contient la _value_.
 - `value` : La valeur que nous souhaitons comparer.
+
+## Ce qu'il me reste à faire
+
+- [ ] Un système de cache pour alléger le chargement des données (et options en minutes pour déterminer la durée).
+- [ ] Par extension, une méthode pour clear le cache en développement.
+- [ ] D'autres options pour les requêtes.
+- [ ] Utiliser une approche plus "orientée objet" pour les données.
+- [x] Supprimer des données en tant qu'administrateur depuis la page HTML.
+- [x] Éditer des données en tant qu'administrateur depuis la page HTML.
+- [ ] Visuel de base généré par Éléments

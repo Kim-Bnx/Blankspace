@@ -167,7 +167,7 @@ Comme promis, ce petit bout de CSS vous débarrassera de la toolbar sans la dés
 
 ### Masquer la barre de navigation
 
-La barre de navigation originelle est nécessaire pour que le plugin fonctionne, mais il est possible que vous en utilisiez une autre. La variable qui permet de l'afficher, `{GENERATED_NAV_BAR}`, se trouve dans le template `overall_header` (haut de page). Si elle n'est pas présente dans votre template (si vous utilisez un système customisé), ajoutez cette ligne dans votre code juste après l'ouverture de la balise `<body>` :
+La barre de navigation originelle est nécessaire pour que le plugin fonctionne, mais il est possible que vous en utilisiez une autre. La variable qui permet de l'afficher, `{GENERATED_NAV_BAR}`, se trouve dans le template `overall_header` (haut de page). Si elle n'est pas présente dans votre template (si vous utilisez un système customisé), ajoutez cette ligne dans votre code juste après l'ouverture de la balise `<body>{:html}` :
 
 ```html
 <div style="display: none;">{GENERATED_NAV_BAR}</div>
