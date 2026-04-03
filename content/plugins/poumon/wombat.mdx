@@ -1,0 +1,174 @@
+---
+title: Wombat
+icon: wombat
+description: Wombat est une visionneuse de profil qui permet de charger et d’ouvrir le profil des membres directement sur la page active, sans la recharger ou en changer, dans un volet indépendant (ou un drawer, comme on les appelle).
+author: Poumon
+version: 1.1.0
+release_date: 08/2022
+---
+
+<Callout type="info">
+    Ce plugin est inclus et déjà installé sur le Blank Theme.
+</Callout>
+
+# Avant l'installation
+
+### Activer les profils simples
+
+Wombat ne fonctionne pas avec l’affichage des profils avancés de ForumActif, tout simplement parce que leur template ne sont pas accessibles. Il faut donc s’assurer que les profils simples sont activés :
+
+<AdminPanelHelper
+    icon="Users"
+    breadcrumbs="Utilisateurs & Groupes, Profils, Options générales"
+    actions={[["Désactiver le profil avancé", "Oui"]]}
+/>
+
+## Installation
+
+L’installation de Wombat nécessite de modifier les templates `général/overall_footer_end` et `profil/profile_view_body`, et aussi d'ajouter quelques lignes de CSS.
+
+### Templates
+
+Nous commencerons par ajouter le script dans le template `général/overall_footer_end`, juste avant la fermeture de la balise `</body>{:html}`.
+
+```html
+<!-- Wombat.js -->
+<script src="https://cdn.jsdelivr.net/gh/caezd/wombat/dist/wombat.min.js"></script>
+
+<!-- Script qui permet d'initialiser le plugin -->
+<script>
+    (function () {
+        new Wombat();
+    })();
+</script>
+```
+
+Puis, dans le template `profil/profile_view_body`, ajoutez `id="wombat"` comme ceci :
+
+````html
+<div class="userProfile" id="wombat">contenu du profil ... ```</div>
+````
+
+Tout ce qui sera compris dans la balise avec l’ID wombat sera affiché dans la visionneuse de profile.
+
+### Customisation du HTML
+
+Pour le Blank Theme, le profil est affiché tel quel sous forme de pop-up. Il est tout à fait possible de customiser la visionneuse et avoir une apparence différente entre l’affichage rapide et la page de profil dédiée.
+
+Pour une apparence totalement unique, vous pouvez doubler le code dans votre template et gérez ainsi deux apparences. Pour caché le code en double, il suffit d’ajouter l’attribut `hidden`.
+
+```html
+<!-- Profil dans une page seule -->
+<div class="userProfile">contenu du profil ...</div>
+
+<!-- Profil wombat -->
+<div class="userProfile-wombat" id="wombat" hidden="">
+    contenu du profil dans la visionneuse ...
+</div>
+```
+
+Seulement la deuxième partie sera affichée dans la visionneuse, la première sera visible uniquement en visitant la page de profil dédiée.
+
+### CSS
+
+Le CSS est relativement simple et se compose d’une class de fond (pour atténuer le fond) et d’une class pour le pop-up. A vous de l’adapter à vos besoins.
+
+```css
+/* Fond atténué */
+.wombat-overlay {
+    position: fixed;
+    z-index: 990;
+    inset: 0;
+    opacity: 0;
+    visibility: hidden;
+    width: 100%;
+    height: 100%;
+    transition: 0.2s opacity ease;
+    background: var(--neutral);
+}
+
+/* effet de transition du fond atténué */
+.wombat-overlay.open {
+    opacity: 0.5;
+    visibility: visible;
+}
+
+/* Fenêtre du popup */
+.wombat-aside {
+    position: fixed;
+    inset: 0;
+    margin: auto;
+    z-index: 999;
+    transition: 0.2s all ease;
+    visibility: hidden;
+    opacity: 0;
+    width: 90%;
+    max-width: 800px;
+    box-shadow: var(--shadowBox);
+    border-radius: 10px;
+    height: max-content;
+    transform: translateX(-20%);
+}
+
+/* effet de transition pour la fenêtre */
+.wombat-aside.open {
+    opacity: 1;
+    transform: translateX(0);
+    visibility: visible;
+}
+```
+
+## Options
+
+Wombat vient avec quelques options qui vous permettent un contrôle un peu plus pointu. Elles doivent être déclarée avec l’initialisation du script qu’on a déplacé dans le template `général/overall_footer_end`, comme ceci :
+
+```js
+new Wombat({
+    option: valeur,
+});
+```
+
+<TypeTable
+    keyLabel="Option"
+    type={{
+        displayOnLoad: {
+            description:
+                "Permet d'appliquer un style display particulier sur le profil une fois qu'il sera chargé dans le volet.",
+            type: "string",
+            default: '"block"',
+        },
+        afterLoad: {
+            description:
+                "Fonction appelée en callback une fois le profil chargé dans le volet. Permet d'appliquer un script supplémentaire pour, par exemple, modifier la structure des champs de profil ou appliquer une couleur de groupe.",
+            type: "function",
+            typeDescription:
+                "(aside: HTMLElement, overlay: HTMLElement) => void",
+            parameters: [
+                {
+                    name: "aside",
+                    description:
+                        "HTMLElement ciblant le volet dans lequel le profil est ajouté.",
+                },
+                {
+                    name: "overlay",
+                    description:
+                        "HTMLElement ciblant l'obfuscateur (.wombat-overlay).",
+                },
+            ],
+        },
+        overlayClass: {
+            description: "Classe CSS attribuée à l'obfuscateur de Wombat.",
+            type: "string",
+            default: '"wombat-overlay"',
+        },
+        drawerClass: {
+            description: "Classe CSS attribuée au panneau latéral de Wombat.",
+            type: "string",
+            default: '"wombat-aside"',
+        },
+    }}
+/>
+
+## Changelog
+
+- `03.02.2026` | Modification de la façon dont les liens de profil sont détectés, délégation des événements sur le DOM directement pour assurer qu'il fonctionne avec le Hub.

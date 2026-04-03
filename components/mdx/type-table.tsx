@@ -227,7 +227,14 @@ function Item({ parentId, name, item }) {
 
 // ─── TypeTable ────────────────────────────────────────────────────────────────
 
-export function TypeTable({ id, type, className, ...props }) {
+export function TypeTable({
+    id,
+    type,
+    keyLabel = "Prop",
+    valueLabel = "Type",
+    className,
+    ...props
+}) {
     return (
         <div
             id={id}
@@ -238,8 +245,8 @@ export function TypeTable({ id, type, className, ...props }) {
             {...props}
         >
             <div className="flex font-medium items-center px-3 gap-3  py-1 text-light-500 dark:text-zinc-400 text-xs uppercase tracking-wide border-b">
-                <p className="w-1/4">Prop</p>
-                <p className="hidden xl:block">Type</p>
+                <p className="w-1/4">{keyLabel}</p>
+                <p className="hidden xl:block">{valueLabel}</p>
             </div>
             {Object.entries(type).map(([key, value]) => (
                 <Item key={key} parentId={id} name={key} item={value} />

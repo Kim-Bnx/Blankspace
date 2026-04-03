@@ -99,7 +99,7 @@ svg[height="0"][aria-hidden="true"] {
             &::before {
                 @apply border;
                 position: absolute;
-                top: 0;
+                top: 1px;
                 left: -36px;
                 width: 24px;
                 height: 24px;
@@ -108,7 +108,7 @@ svg[height="0"][aria-hidden="true"] {
             }
             &::after {
                 position: absolute;
-                top: 0;
+                top: 1px;
                 left: -36px;
                 width: 24px;
                 line-height: 24px;

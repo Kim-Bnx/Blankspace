@@ -1,3 +1,5 @@
+import PageIcon from "@/components/plugins/doc-icon";
+
 interface PageHeaderProps {
     title?: string;
     description?: string;
@@ -9,6 +11,8 @@ export const DocsHeader = ({ metadata }: PageHeaderProps) => {
 
     return (
         <header className="pt-10 pb-6 mb-8 border-b border-border">
+            <PageIcon name={icon} className="size-20 mb-4" />
+
             {title && <h1 className="text-4xl font-bold">{title}</h1>}
             {description && (
                 <p className="mt-2 text-light-800">{description}</p>

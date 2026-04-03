@@ -315,17 +315,17 @@ Les événements déclarés permettent d'appeler une fonction présente dans l'o
     const data = {
         cats: [
             { name: "Boudin", color: "noir" },
-            { name: "Babushka", color: "écaille de tortue" }
+            { name: "Babushka", color: "écaille de tortue" },
         ],
         feedCat() {
-            alert('Oh non, il n'y a plus de croquettes !');
+            alert("Oh non, il n'y a plus de croquettes !");
         },
         petCat(e, name) {
             alert(name + " ronronne de bonheur !");
-        }
+        },
     };
 
-    const syncedData = potion.sync('cats', data);
+    const syncedData = potion.sync("cats", data);
 </script>
 ```
 
@@ -338,3 +338,385 @@ Exemples concrets :
 - `@click.stop{:html}` → Empêche la propagation de l’événement comme `event.stopPropagation(){:js}`.
 - `@submit.prevent{:html}` → Empêche le rechargement de la page lors de l’envoi d’un formulaire comme `event.preventDefault(){:js}`.
 - `@keyup.enter{:html}` → Déclenche l’action uniquement quand on appuie sur "Entrée".
+
+### Événements
+
+- `.stop` : empêche la propagation de l’événement.
+- `.prevent` : empêche le comportement par défaut de l’événement.
+
+### Clavier
+
+- `.enter` : déclenche l’action uniquement quand on appuie sur "Entrée".
+- `.esc` : déclenche l’action uniquement quand on appuie sur "Échap".
+- `.tab` : déclenche l’action uniquement quand on appuie sur "Tabulation".
+- `.delete`: déclenche l’action uniquement quand on appuie sur "Supprimer".
+- `.space` : déclenche l’action uniquement quand on appuie sur "Espace".
+- `.up` : déclenche l’action uniquement quand on appuie sur la flèche "Haut".
+- `.down` : déclenche l’action uniquement quand on appuie sur la flèche "Bas".
+- `.left` : déclenche l’action uniquement quand on appuie sur la flèche "Gauche".
+- `.right` : déclenche l’action uniquement quand on appuie sur la flèche "Droite".
+
+### Souris
+
+- `.left` : déclenche l’action uniquement quand on clique avec le bouton gauche de la souris.
+- `.right` : déclenche l’action uniquement quand on clique avec le bouton droit de la souris.
+- `.middle` : déclenche l’action uniquement quand on clique avec le bouton du milieu de la souris.
+
+## Propriétés intégrées
+
+Quelques propriétés spéciales sont injectées dans l'objet data passé en argument. Ces propriétés sont accessibles avec `potion.render(){:js}` et `potion.sync(){:js}` et peuvent être utilisé dans une fonction passées en données avec le mot-clef _this_.
+
+### $root
+
+`this.$root{:js}` fait référence à l'élément HTML du template une fois transformé. C'est un lien direct vers le DOM qui permet de faire des manipulations avancées.
+
+```html
+<template type="template/potion" data-name="cats">
+    <button @click="makeMeBoudin">Je suis Boudin !</button>
+</template>
+
+<script>
+    potion.sync("cats", {
+        makeMeBoudin: function () {
+            this.$root.classList.add("im-boudin");
+        },
+    });
+</script>
+```
+
+### $refs
+
+`this.$refs{:js}` est un objet qui contient une référence à tous les éléments du template qui ont l'attribut `#ref`. Par exemple, `this.$refs.boudin{:js}` fera référence à l'élément `<div #ref="boudin">{:html}`.
+
+```html
+<template type="template/potion" data-name="cats">
+    <div class="boudin" #ref="boudin">Je suis Boudin !</div>
+    <button @click="makeMeBlack"></button>
+</template>
+
+<script>
+    potion.sync("cats", {
+        makeMeBlack: function () {
+            this.$refs.boudin.classList.add("bg-black");
+        },
+    });
+</script>
+```
+
+### $store
+
+`this.$store{:js}` fourni un accès à différentes valeurs propres aux forums de ForumActif.
+
+## Filtres
+
+Potion propose un système de filtres inspiré de LiquidJS qui permet de transformer et formater vos données directement dans vos templates. Chaque filtre peut être appliqué à un jeton en utilisant la syntaxe suivant :
+
+```html
+[variable | filtre1: arg1, arg2 | filtre2]
+```
+
+1. Le contenu entre les délimiteurs afin d'extraire le jeton (dans l'exemple, variable) et la liste des filtres à appliquer.
+1. La valeur par défaut du jeton est récupérée depuis son contexte.
+1. Chaque filtre est appliqué successivement, en transmettant le résultat du filtre précédent.
+1. Si un filtre possède des arguments, la syntaxe utilisée est `filtre: arg1, arg2`
+
+<TypeTable
+    type={{
+        abs: {
+            description: "Retourne la valeur absolue d'un nombre.",
+            type: "number",
+        },
+        append: {
+            description: "Concatène une chaîne à la fin de la valeur.",
+            type: "string",
+            parameters: [
+                {
+                    name: "suffix",
+                    description: "Chaîne à ajouter à la fin de la valeur.",
+                },
+            ],
+        },
+        at_least: {
+            description:
+                "Renvoie la valeur maximale entre la valeur et un minimum donné.",
+            type: "number",
+            parameters: [
+                { name: "min", description: "Valeur minimale à respecter." },
+            ],
+        },
+        at_most: {
+            description:
+                "Renvoie la valeur minimale entre la valeur et un maximum donné.",
+            type: "number",
+            parameters: [
+                { name: "max", description: "Valeur maximale à respecter." },
+            ],
+        },
+        capitalize: {
+            description: "Met en majuscule la première lettre d'une chaîne.",
+            type: "string",
+        },
+        ceil: {
+            description: "Arrondit un nombre à l'entier supérieur.",
+            type: "number",
+        },
+        compact: {
+            description:
+                "Supprime les valeurs nulles ou undefined d'un tableau.",
+            type: "array",
+        },
+        default: {
+            description:
+                "Retourne une valeur par défaut si la valeur est vide, nulle ou undefined.",
+            type: "string",
+            parameters: [
+                {
+                    name: "defaultValue",
+                    description: "La valeur à utiliser si le jeton est vide.",
+                },
+            ],
+        },
+        divided_by: {
+            description: "Divise la valeur par un diviseur.",
+            type: "number",
+            parameters: [
+                {
+                    name: "divisor",
+                    description: "Le diviseur (doit être non nul).",
+                },
+            ],
+        },
+        escape: {
+            description: "Échappe les caractères spéciaux HTML.",
+            type: "string",
+        },
+        first: {
+            description:
+                "Retourne le premier élément d'un tableau ou le premier caractère d'une chaîne.",
+            type: "string | array",
+        },
+        floor: {
+            description: "Arrondit un nombre à l'entier inférieur.",
+            type: "number",
+        },
+        join: {
+            description:
+                "Concatène les éléments d'un tableau en une chaîne séparée par un délimiteur.",
+            type: "string",
+            parameters: [
+                {
+                    name: "delimiter",
+                    description: "Chaîne utilisée pour séparer les éléments.",
+                },
+            ],
+        },
+        last: {
+            description:
+                "Retourne le dernier élément d'un tableau ou le dernier caractère d'une chaîne.",
+            type: "string | array",
+        },
+        lowercase: {
+            description: "Convertit une chaîne en minuscules.",
+            type: "string",
+        },
+        lstrip: {
+            description: "Supprime les espaces en début de chaîne.",
+            type: "string",
+        },
+        map: {
+            description:
+                "Extrait une propriété spécifique de chaque élément d'un tableau.",
+            type: "array",
+            parameters: [
+                {
+                    name: "property",
+                    description: "Nom de la propriété à extraire.",
+                },
+            ],
+        },
+        minus: {
+            description: "Soustrait un nombre à la valeur.",
+            type: "number",
+            parameters: [
+                { name: "number", description: "La valeur à soustraire." },
+            ],
+        },
+        modulo: {
+            description: "Calcule le reste de la division (modulo).",
+            type: "number",
+            parameters: [
+                {
+                    name: "divisor",
+                    description: "Le diviseur (doit être non nul).",
+                },
+            ],
+        },
+        plus: {
+            description: "Ajoute un nombre à la valeur.",
+            type: "number",
+            parameters: [
+                { name: "number", description: "La valeur à ajouter." },
+            ],
+        },
+        prepend: {
+            description: "Ajoute une chaîne au début de la valeur.",
+            type: "string",
+            parameters: [
+                { name: "prefix", description: "Chaîne à ajouter au début." },
+            ],
+        },
+        remove: {
+            description: "Supprime toutes les occurrences d'une sous-chaîne.",
+            type: "string",
+            parameters: [
+                {
+                    name: "substring",
+                    description: "La sous-chaîne à supprimer.",
+                },
+            ],
+        },
+        remove_first: {
+            description: "Supprime la première occurrence d'une sous-chaîne.",
+            type: "string",
+            parameters: [
+                {
+                    name: "substring",
+                    description: "La sous-chaîne à supprimer.",
+                },
+            ],
+        },
+        replace: {
+            description:
+                "Remplace toutes les occurrences d'une sous-chaîne par une autre.",
+            type: "string",
+            parameters: [
+                { name: "search", description: "La sous-chaîne à rechercher." },
+                {
+                    name: "replacement",
+                    description: "La sous-chaîne de remplacement.",
+                },
+            ],
+        },
+        replace_first: {
+            description:
+                "Remplace uniquement la première occurrence d'une sous-chaîne par une autre.",
+            type: "string",
+            parameters: [
+                { name: "search", description: "La sous-chaîne à rechercher." },
+                {
+                    name: "replacement",
+                    description: "La sous-chaîne de remplacement.",
+                },
+            ],
+        },
+        reverse: {
+            description: "Inverse l'ordre d'un tableau ou d'une chaîne.",
+            type: "array | string",
+        },
+        round: {
+            description: "Arrondit un nombre à la précision indiquée.",
+            type: "number",
+            parameters: [
+                {
+                    name: "precision",
+                    description: "Nombre de décimales (par défaut 0).",
+                },
+            ],
+        },
+        rstrip: {
+            description: "Supprime les espaces à la fin d'une chaîne.",
+            type: "string",
+        },
+        size: {
+            description:
+                "Retourne la taille d'un tableau, d'une chaîne ou le nombre de clés d'un objet.",
+            type: "number",
+        },
+        slice: {
+            description: "Extrait une portion d'une chaîne ou d'un tableau.",
+            type: "string | array",
+            parameters: [
+                { name: "start", description: "Indice de début." },
+                {
+                    name: "length",
+                    description:
+                        "Nombre de caractères (ou éléments) à extraire.",
+                },
+            ],
+        },
+        sort: {
+            description:
+                "Trie un tableau. Vous pouvez trier par une propriété spécifique si besoin.",
+            type: "array",
+            parameters: [
+                {
+                    name: "property",
+                    description:
+                        "Nom de la propriété par laquelle trier (optionnel).",
+                },
+            ],
+        },
+        split: {
+            description:
+                "Découpe une chaîne en un tableau en se basant sur un délimiteur.",
+            type: "array",
+            parameters: [
+                {
+                    name: "delimiter",
+                    description:
+                        "Le caractère ou la chaîne utilisée pour séparer.",
+                },
+            ],
+        },
+        strip: {
+            description: "Supprime les espaces en début et fin d'une chaîne.",
+            type: "string",
+        },
+        strip_html: {
+            description: "Supprime toutes les balises HTML d'une chaîne.",
+            type: "string",
+        },
+        times: {
+            description: "Multiplie un nombre par un multiplicateur.",
+            type: "number",
+            parameters: [
+                {
+                    name: "multiplier",
+                    description: "Le facteur de multiplication.",
+                },
+            ],
+        },
+        truncate: {
+            description:
+                "Tronque une chaîne à une longueur donnée et ajoute un ellipsis.",
+            type: "string",
+            parameters: [
+                {
+                    name: "length",
+                    description: "Longueur maximale (par défaut 50).",
+                },
+                {
+                    name: "ellipsis",
+                    description:
+                        'Chaîne à ajouter si tronquée (par défaut "...").',
+                },
+            ],
+        },
+        unique: {
+            description: "Supprime les doublons d'un tableau.",
+            type: "array",
+        },
+        uppercase: {
+            description: "Convertit une chaîne en majuscules.",
+            type: "string",
+        },
+        url_decode: {
+            description: "Décode une URL encodée.",
+            type: "string",
+        },
+        url_encode: {
+            description: "Encode une chaîne pour l'utiliser dans une URL.",
+            type: "string",
+        },
+    }}
+/>
