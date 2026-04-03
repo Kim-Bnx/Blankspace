@@ -31,8 +31,9 @@
     --color-light-300: #d3d1d4;
     --color-light-800: #8c8eab;
 
-    --font-body: "Nunito", sans-serif;
-    --font-headings: "Lexend", sans-serif;
+    --font-mono: "Inclusive Sans", monospace;
+    --font-body: "Inter", sans-serif;
+    --font-headings: "Poppins", sans-serif;
 }
 
 @layer base {

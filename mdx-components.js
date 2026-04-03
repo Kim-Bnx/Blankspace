@@ -72,7 +72,9 @@ const defaultComponents = getNextraComponents({
     AdminPanelHelper,
 });
 
-export const useMDXComponents = (components) => ({
-    ...defaultComponents,
-    ...components,
-});
+export const useMDXComponents = (components) => {
+    return {
+        ...defaultComponents,
+        ...components,
+    };
+};

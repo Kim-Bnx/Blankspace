@@ -4,10 +4,12 @@ import { getPageMap } from "nextra/page-map";
 import type { FC, ReactNode } from "react";
 import { NextraTheme } from "@/components/nextra-theme";
 import "../global.css";
-import { Lexend, Nunito, Inclusive_Sans } from "next/font/google";
+import { Poppins, Inter, Inclusive_Sans } from "next/font/google";
 
-const headings = Lexend({ subsets: ["latin"] });
-const body = Nunito({ subsets: ["latin"], weight: ["400", "700"] });
+const headings = Poppins({
+    weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+});
+const body = Inter({ subsets: ["latin"], weight: ["400", "700"] });
 const mono = Inclusive_Sans({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -29,7 +31,7 @@ const RootLayout: FC<{ children: ReactNode }> = async ({ children }) => {
             <Head faviconGlyph="✦" />
             <body
                 suppressHydrationWarning
-                className={`${body.className} ${headings.className} ${mono.className} h-full bg-background text-light-100`}
+                className={`${body.className} h-full bg-background text-light-100`}
                 style={{ colorScheme: "dark" }}
             >
                 <NextraTheme pageMap={pageMap}>{children}</NextraTheme>
