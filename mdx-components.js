@@ -11,6 +11,9 @@ import { Columns } from "@/components/mdx/columns";
 import { Card } from "@/components/mdx/card";
 import { LinkCard } from "@/components/mdx/link-card";
 import { TypeTable } from "@/components/mdx/type-table";
+import { Shortcut } from "@/components/mdx/shortcut";
+import { Details } from '@/components/mdx/details'
+
 
 import { H1, H2, H3, H4, H5, H6 } from "@/components/mdx/heading";
 
@@ -70,6 +73,8 @@ const defaultComponents = getNextraComponents({
     Callout,
     TypeTable,
     AdminPanelHelper,
+    Shortcut,
+    Details
 });
 
 export const useMDXComponents = (components) => {
