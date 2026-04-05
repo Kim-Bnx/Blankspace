@@ -1,12 +1,13 @@
 import "../global.css";
 
-import { Poppins, Inter, Inclusive_Sans } from "next/font/google";
+import { Poppins, Inter, Inconsolata } from "next/font/google";
 
 const headings = Poppins({
+    subsets: ["latin"],
     weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
 const body = Inter({ subsets: ["latin"], weight: ["400", "700"] });
-const mono = Inclusive_Sans({ subsets: ["latin"] });
+const mono = Inconsolata({ subsets: ["latin"] });
 
 export default function Layout({ children }) {
     return (

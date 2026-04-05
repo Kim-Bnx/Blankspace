@@ -1,11 +1,11 @@
 ---
 title: Switcheroo
 author: Poumon
+description: Switcheroo est un plugin qui regroupe vos comptes dans une barre de navigation pour passer de l’un à l’autre en un seul clic. Son interface intuitive, combinée à des options d’installation et de personnalisation simples, vous permet de l’intégrer facilement aux couleurs de votre forum.
+icon: switcheroo
+version: 1.0.0
+release_date: 01/2021
 ---
-
-Switcheroo est un plugin qui regroupe vos comptes dans une barre de navigation pour passer de l'un à l'autre en un seul clic. Son interface intuitive, combinée à des options d'installation et de personnalisation simples, vous permet de l'intégrer facilement aux couleurs de votre forum.
-
-- N'hésitez pas à passer sur le [forum de support](https://blankthemerpg.forumactif.com/t38-switcheroo-support) en cas de besoin !
 
 ## Avant l'installation : les prérequis
 
@@ -43,20 +43,13 @@ Le plugin en lui-même est très simple à installer. Il comprend deux fichiers 
 
 - `monomer.js` est un outil où je centralise toutes les fonctions utilitaires dont je me sers au quotidien. Par exemple, c'est grâce à ce script que le formulaire de connexion du plugin est appelé en popup.
 
-- `switcheroo.js` est le fichier principal qui permet d'appeler le plugin Switcheroo.
-  Ce sont ces fichiers que vous trouvez dans ce repository Github. En les important d
-  e cette façon, en cas de mise à jour du plugin, vous n'aurez rien à modifier.
+- `switcheroo.js` est le fichier principal qui permet d'appeler le plugin Switcheroo. Ce sont ces fichiers que vous trouvez dans ce repository Github. En les important d e cette façon, en cas de mise à jour du plugin, vous n'aurez rien à modifier.
 
 Ouvrez votre template `overall_footer_end` (fin du bas de page) et juste avant la fermeture de la balise `</body>{:html}` insérez le code suivant :
 
 ```html
 <!-- Barre principale du plugin, dans laquelle la magie s'opère. Certaines valeurs peuvent être modifiées. -->
-<nav
-    id="switcheroo"
-    class="switcheroo"
-    direction="vertical"
-    position="top"
-></nav>
+<nav id="switcheroo" class="switcheroo" direction="vertical" position="top"></nav>
 
 <!-- Importation de Monomer.js et Switcheroo.js -->
 <script src="https://cdn.jsdelivr.net/gh/caezd/switcheroo@master/monomer.js"></script>

@@ -24,7 +24,7 @@ export default async function Page(props) {
     return (
         <Wrapper toc={toc} metadata={metadata} sourceCode={sourceCode}>
             <DocsHeader metadata={metadata} />
-            <div className="py-8 copy">
+            <div className="copy">
                 <MDXContent {...props} params={params} />
             </div>
             <DocsFooter metadata={metadata} />

@@ -1,15 +1,15 @@
 import nextra from "nextra";
+import { rehypeFrenchColon } from "./lib/rehype-french-colon.mjs";
 
-// Set up Nextra with its configuration
 const withNextra = nextra({
-    contentDirBasePath: "/docs", // Or even nested e.g. `/docs/advanced`
+    contentDirBasePath: "/docs",
     defaultShowCopyCode: true,
     mdxOptions: {
         rehypePrettyCodeOptions: {
             theme: "github-dark-dimmed",
         },
+        rehypePlugins: [rehypeFrenchColon],
     },
 });
 
-// Export the final Next.js config with Nextra included
 export default withNextra({});

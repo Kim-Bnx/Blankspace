@@ -23,16 +23,14 @@ export const DocsHeader = ({ metadata }: PageHeaderProps) => {
     if (!title && !description) return null;
 
     return (
-        <header className="pt-10 pb-6 mb-8 border-b border-border">
+        <header className="pt-10 pb-8 mb-8 border-b border-border">
             <PageIcon name={icon} className="size-20 mb-4" />
 
-            {title && <h1 className="text-4xl font-bold">{title}</h1>}
+            {title && <h1 className="text-4xl font-semibold">{title}</h1>}
             {description && (
-                <p className="mt-2 text-light-300 text-lg mb-6">
-                    {description}
-                </p>
+                <p className="mt-2 text-light-300 text-lg">{description}</p>
             )}
-            <div className="grid grid-cols-[max-content_1fr] gap-x-6 gap-y-2 text-light-800 text-sm">
+            <div className="grid grid-cols-[max-content_1fr] gap-x-6 gap-y-2 text-light-800 text-sm mt-6">
                 {release_date &&
                     (() => {
                         const isMonthYear = /^\d{2}\/\d{4}$/.test(release_date);
